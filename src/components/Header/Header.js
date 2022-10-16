@@ -3,11 +3,11 @@ import './Header.css';
 
 function Header() {
   return ( 
-      <header className="header">
+      <header className="header header_theme_dark">
         <img src={Logo} alt="Лого" className="header__logo"></img>
         <div className="header__buttons">
-          <a className="header__button_signup" href="#">Регистрация</a>
-          <a className="header__button_signin" href="#">Войти</a>
+          <a href="https://yandex.ru/maps" target="_blank" rel="noreferrer" className="header__button_signup">Регистрация</a>
+          <a href="https://yandex.ru/maps" target="_blank" rel="noreferrer" className="header__button_signin">Войти</a>
         </div>
       </header> 
   );

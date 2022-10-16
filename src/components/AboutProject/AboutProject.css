@@ -1,0 +1,119 @@
+.about-project {
+    max-width: 1280px;
+    min-height: 608px;
+    padding-left: 70px;
+    padding-right: 70px;
+    background-color: #FFFFFF;
+}
+
+.about-project__title {
+    display: block;
+    padding: 110px 0 23px;
+    margin: 0;
+    border-bottom: 1px solid #000000;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 27px;
+    letter-spacing: -0.04em;
+    color: #000000;
+}
+
+.about-project__description {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+    "subtitle1 subtitle2"
+    "paragraph1 paragraph2";
+    column-gap: 40px;
+    row-gap: 26px;
+    margin-top: 70px;
+}
+
+.about-project__subtitle {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.04em;
+    color: #000000;
+    margin: 0;
+    padding: 0;
+}
+
+.about-project__subtitle_1 {
+    grid-area: subtitle1;
+}
+
+.about-project__subtitle_2 {
+    grid-area: subtitle2;
+}
+
+.about-project__paragraph {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #000000;
+    margin: 0;
+    padding: 0;
+}
+
+.about-project__paragraph_1 {
+    grid-area: paragraph1;
+}
+
+.about-project__paragraph_2 {
+    grid-area: paragraph2;
+}
+
+.about-project__terms {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-areas: 
+    "1week 4weeks"
+    "BE FE";
+    margin-top: 70px;
+}
+
+.about-project__p {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    display: block;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    margin: 0;
+}
+
+.about-project__p_1 {
+    grid-area: 1week;
+    background-color: #2BE080;
+}
+
+.about-project__p_2 {
+    grid-area: 4weeks;
+    background-color: #F2F2F2;
+}
+
+.about-project__p_3 {
+    grid-area: BE;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    color: #A0A0A0;
+    margin: 0;
+}
+
+.about-project__p_4 {
+    grid-area: FE;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    color: #A0A0A0;
+    margin: 0;
+}
