@@ -1,6 +1,8 @@
 .footer {
     max-width: 1280px;
-    padding: 0 70px 0;
+    width: 100%;
+    margin: 0 auto;
+    /*padding: 0 70px 0;*/
 }
 
 .footer__caption {
@@ -12,7 +14,7 @@
     line-height: 16px;
     text-align: center; 
     color: #A0A0A0;
-    margin: 79px 0 0;
+    margin: 79px 70px 0;
     padding-bottom: 20px;
     border-bottom: 1px solid #A0A0A0;
 }
@@ -20,6 +22,7 @@
 .footer__nav {
     display: flex;
     padding: 20px 0;
+    margin: 0 70px 0;
     align-items: center;
     justify-content: space-between;
 }
