@@ -1,53 +1,93 @@
 .footer {
-    max-width: 1280px;
-    width: 100%;
-    margin: 0 auto;
-    /*padding: 0 70px 0;*/
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .footer__caption {
-    display: block;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 16px;
-    text-align: center; 
-    color: #A0A0A0;
-    margin: 79px 70px 0;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #A0A0A0;
+  display: block;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+  color: #a0a0a0;
+  margin: 79px 70px 0;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #a0a0a0;
 }
 
 .footer__nav {
-    display: flex;
-    padding: 20px 0;
-    margin: 0 70px 0;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  padding: 20px 0;
+  margin: 0 70px 0;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .footer__links {
-    list-style: none;
-    display: flex;
+  list-style: none;
+  display: flex;
 }
 
 .footer__link {
-    padding-left: 20px;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 16px;
-    color: #000000;
-    text-decoration: none;
+  padding-left: 20px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  text-decoration: none;
 }
 
 .footer__copyright {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 16px;
-    color: #000000; 
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+@media screen and (max-width: 800px) {
+  .footer__nav {
+    margin: 0 30px 0;
+  }
+
+  .footer__caption {
+    margin: 79px 30px 0;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .footer__nav {
+    flex-direction: column-reverse;
+    align-items: center;
+    margin: 30px auto 10px;
+  }
+
+  .footer__caption {
+    margin: 79px 10px 0;
+  }
+
+  .footer__links {
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer__link {
+    display: block;
+    padding-left: 0;
+    padding-bottom: 12px;
+    font-size: 12px;
+    line-height: 15px;
+    color: #000000;
+    text-decoration: none;
+  }
+
+  .footer__copyright {
+    padding-top: 18px;
+    font-size: 12px;
+    line-height: 15px;
+    color: #a0a0a0;
+  }
 }
