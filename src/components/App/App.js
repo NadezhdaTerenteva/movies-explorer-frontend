@@ -1,4 +1,5 @@
 import Main from '../Main/Main';
+import Movies from '../Movies/Movies';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
@@ -10,6 +11,7 @@ function App() {
       <Header></Header>
       <Main>
       </Main>
+      <Movies></Movies>
       <Footer></Footer>
     </div>
   );
