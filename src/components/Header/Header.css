@@ -99,12 +99,38 @@
   text-decoration: none;
 }
 
+.header__burger-menu {
+  display: none;
+}
+
 @media screen and (max-width: 800px) {
   .header__logo {
     margin-left: 30px;
   }
   .header__buttons {
     margin-right: 30px;
+  }
+  .header__links {
+    margin-right: 30px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header__link-films {
+    display: none;
+  }
+  .header__link-saved-films {
+    display: none;
+  }
+  .header__link-account {
+    display: none;
+  }
+  .header__burger-menu {
+    display: block;
+    margin-left: auto;
+  }
+  .header__burger-menu:hover {
+    opacity: 0.7;
   }
 }
 
@@ -115,5 +141,12 @@
   .header__buttons {
     margin-right: 14px;
     font-size: 12px;
+  }
+  .header__links {
+    margin-right: 14px;
+  }
+  .header__burger-menu-icon {
+    width: 40px;
+    height: 43px;
   }
 }

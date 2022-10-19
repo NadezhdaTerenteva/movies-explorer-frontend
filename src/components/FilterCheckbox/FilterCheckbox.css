@@ -1,0 +1,78 @@
+.toggler {
+    display: inline-flex;
+    cursor: pointer;
+    position: relative;
+}
+
+.toggler__input {
+    position: absolute;
+    outline: none;
+    clip: rect(0,0,0,0);
+}
+
+.toggler__state {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.toggler__control {
+    position: relative;
+    box-sizing: border-box;
+    width: 52px;
+    height: 28px;
+    background: white;
+    border: 1px solid grey;
+    border-radius: 16px;
+    padding: 2px 2px 2px 2px;
+    transition: background-color 500ms ease, right 1000ms ease;
+}
+
+.toggler__inner {
+    position: absolute;
+    top: 1px;
+    right: 24px;
+    bottom: 1px;
+    box-sizing: border-box;
+    width: 50%;
+    height: 24px;
+    background-color: grey;
+    border-radius: 16px;
+    transition: background-color 500ms ease, right 500ms ease;
+}
+
+.toggler__title {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: grey;
+}
+
+.toggler__input:focus ~ .toggler__state .toggler__title {
+    text-decoration: underline;
+}
+
+.toggler__input:checked ~ .toggler__state .toggler__control {
+    background: blue;
+    border-color: red
+}
+
+.toggler__input:checked ~ .toggler__state .toggler__control .toggler__inner-wrapper {
+    width: 100%;
+}
+
+.toggler__input:checked ~ .toggler__state .toggler__control .toggler__inner {
+    background: white;
+    right: 2px;
+}
+
+.toggler__input:disabled ~ .toggler__state .toggler__control {
+
+    background: grey;
+    border-color: grey;
+}
+
+.toggler__input:disabled ~ .toggler__state .toggler__control .toggler__inner {
+    background: grey;
+}
