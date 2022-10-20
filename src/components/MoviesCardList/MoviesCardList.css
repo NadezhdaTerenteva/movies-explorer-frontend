@@ -1,6 +1,7 @@
 .movies-card-list {
     max-width: 1140px;
     width: 100%;
+    margin-top: 80px;
     display: grid;
     justify-content: center;
     grid-template-columns: repeat(auto-fill, 360px);
