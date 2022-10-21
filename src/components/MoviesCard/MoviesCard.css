@@ -9,7 +9,13 @@
   object-fit: scale-down;
 }
 
+.movies-card__img:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
 .movies-card__save-button {
+  visibility: hidden;
   padding: 6px 7px;
   position: absolute;
   top: 14px;
@@ -24,6 +30,10 @@
 
 .movies-card__save-button:hover {
   opacity: 0.7;
+}
+
+.movies-card__save-button_active {
+  visibility: visible;
 }
 
 .movies-card__saved-icon {
@@ -43,8 +53,32 @@
   border: none;
 }
 
+.movies-card__delete-icon {
+  visibility: hidden;
+  width: 21px;
+  height: 21px;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  box-sizing: border-box;
+  background-image: url(../../images/delete_icon-min.svg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+}
+
 .movies-card__saved-icon_active {
   visibility: visible;
+}
+
+.movies-card__delete-icon_active {
+  visibility: visible;
+}
+
+.movies-card__delete-icon_active:hover {
+  opacity: 0.8;
 }
 
 .movies-card__description {
