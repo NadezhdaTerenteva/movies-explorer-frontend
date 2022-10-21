@@ -18,6 +18,11 @@
   width: 38px;
 }
 
+.header__logo_in-forms {
+  margin-left: 0;
+  margin-bottom: 40px;
+}
+
 .header__buttons {
   margin-right: 70px;
   margin-left: auto;

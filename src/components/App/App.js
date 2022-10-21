@@ -3,8 +3,10 @@ import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import Register from '../Register/Register'
 
 import './App.css';
+;
 
 
 function App() {
@@ -15,6 +17,7 @@ function App() {
       </Main>
       <Movies></Movies>
       <SavedMovies></SavedMovies>
+      <Register></Register>
       <Footer></Footer>
     </div>
   );
