@@ -1,7 +1,10 @@
 .register {
+  display: flex;
+  flex-direction: column;
+
   width: 100%;
   max-width: 396px;
-  margin: 60px auto 0;
+  margin: auto;
 }
 
 .register__header {
@@ -32,7 +35,7 @@
 }
 
 .register__input:last-of-type {
-  margin: 0 0 91px;
+  margin-bottom: 91px;
 }
 
 .register__submit-button {
@@ -43,7 +46,7 @@
   padding: 0;
   border: none;
   border-radius: 3px;
-  background-color: #3456F3;
+  background-color: #3456f3;
   font-family: "Inter", Arial, sans-serif;
   font-family: "Inter";
   font-style: normal;
@@ -69,12 +72,12 @@
   font-size: 14px;
   line-height: 17px;
   text-align: center;
-  color:#A0A0A0;
+  color: #a0a0a0;
 }
 
 .register__caption-link {
   text-decoration: none;
-  color: #3456F3;
+  color: #3456f3;
 }
 
 .register__caption-link:hover {
@@ -82,32 +85,19 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 470px) {
-  .register__input:last-of-type {
-    margin: 0 0 173px;
-  }
-  .register__submit-button {
-    width: 100%;
-    height: 46px;
-    font-size: 16px;
-    line-height: 19px;
-  }
-}
-
-@media screen and (max-width: 430px) {
+@media screen and (max-width: 425px) {
   .register {
-    width: 100%;
     max-width: 260px;
-    margin-top: 40px;
   }
-
   .register__header {
-    width: 100%;
-    max-width: 260px;
-    margin-top: 40px;
-    padding: 0 0 40px 0;
-    font-size: 20px;
-    line-height: 24px;
+    text-align: center;
+  }
+  .register__input:last-of-type {
+    margin-bottom: 179px;
+  }
+  .register__caption {
+    font-size: 12px;
+    line-height: 15px;
   }
 }
 
@@ -119,4 +109,35 @@
   font-size: 10px;
   line-height: 12px;
   color: #a0a0a0;
+}
+
+.register__input__error-visible {
+  display: block;
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 100%;
+  font-family: inherit;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #ff3055;
+}
+
+.register__input_type-error {
+  color: #ff0000;
+}
+
+.logo_in-forms {
+  height: 38px;
+  width: 38px;
+  margin-bottom: 40px;
+}
+
+@media screen and (max-width: 425px) {
+  .logo_in-forms {
+    margin-bottom: 50px;
+    align-self: center;
+  }
 }

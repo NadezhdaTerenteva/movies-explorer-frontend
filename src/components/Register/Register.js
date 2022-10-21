@@ -29,7 +29,7 @@ function Register({ onRegister }) {
 
   return (
     <div className="register">
-      <img src={Logo} alt="Лого" className="header__logo header__logo_in-forms"></img>
+      <img src={Logo} alt="Лого" className="logo_in-forms"></img>
       <h3 className="register__header">Добро пожаловать!</h3>
       <form onSubmit={handleSubmit} className="register__form">
         <label for="name" className="form-label">Имя</label>
