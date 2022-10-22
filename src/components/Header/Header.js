@@ -17,9 +17,9 @@ function Header() {
       <header className="header">
       <img src={Logo} alt="Лого" className="header__logo"></img>
       <div className="header__links">
-        <a href="https://yandex.ru/maps" target="_blank" rel="noreferrer" className="header__link-films">Фильмы</a>
-        <a href="https://yandex.ru/maps" target="_blank" rel="noreferrer" className="header__link-saved-films">Сохранённые фильмы</a>
-        <a href="https://yandex.ru/maps" target="_blank" rel="noreferrer" className="header__link-account">
+        <a href="https://yandex.ru/maps" target="_blank" rel="noreferrer" className="header__link header__link-films">Фильмы</a>
+        <a href="https://yandex.ru/maps" target="_blank" rel="noreferrer" className="header__link header__link-saved-films">Сохранённые фильмы</a>
+        <a href="https://yandex.ru/maps" target="_blank" rel="noreferrer" className="header__link header__link-account">
             <p className="header__link-account-text">Аккаунт</p>
             <img src={AccountIcon} alt="Иконка" className="header__link-account-icon"></img>
         </a>

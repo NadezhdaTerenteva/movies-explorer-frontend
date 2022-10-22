@@ -40,6 +40,14 @@
   margin-right: 70px;
 }
 
+.header__link {
+  display: block;
+  font-size: 13px;
+  line-height: 18px;
+  color: #000000;
+  text-decoration: none;
+}
+
 .header__link-films {
   display: block;
   font-weight: 500;
@@ -50,21 +58,15 @@
 }
 
 .header__link-saved-films {
-  display: block;
   margin-left: 16px;
   margin-right: auto;
   font-weight: 400;
-  font-size: 13px;
-  line-height: 18px;
-  color: #000000;
   text-decoration: none;
 }
 
 .header__link-account {
   display: flex;
   align-items: center;
-  text-decoration: none;
-  color: #000000;
 }
 
 .header__link-account-text {
@@ -116,13 +118,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .header__link-films {
-    display: none;
-  }
-  .header__link-saved-films {
-    display: none;
-  }
-  .header__link-account {
+  .header__link {
     display: none;
   }
   .header__burger-menu {

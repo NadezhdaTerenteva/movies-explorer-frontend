@@ -7,8 +7,10 @@ import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import NotFound from '../NotFound/NotFound';
+import SidebarMenu from '../SidebarMenu/SidebarMenu';
 
 import './App.css';
+
 
 
 
@@ -24,6 +26,7 @@ function App() {
       <Register></Register>
       <Login></Login>
       <NotFound></NotFound>
+      <SidebarMenu></SidebarMenu>
       <Footer></Footer>
     </div>
   );
