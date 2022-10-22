@@ -1,0 +1,117 @@
+.profile {
+  width: 100%;
+  max-width: 410px;
+  margin: auto;
+}
+
+.profile__header {
+  margin: 70px 0 0;
+  padding: 0 0 123px 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  text-align: center;
+  color: #000000;
+}
+
+.profile__input-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 17px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.profile__input-field:last-of-type {
+  border-bottom: none;
+  margin-bottom: 220px;
+}
+
+.profile__form-label {
+  display: block;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+}
+
+.profile__input {
+  display: block;
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: right;
+  outline: none;
+  border: none;
+  box-sizing: border-box;
+}
+
+.profile__submit-button {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 16px;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+}
+
+.profile__submit-button:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.profile__caption {
+  width: 100%;
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 70px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+  color: #a0a0a0;
+}
+
+.profile__caption-link {
+  text-decoration: none;
+  color: #ff3055;
+}
+
+.profile__caption-link:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 425px) {
+  .profile {
+    max-width: 260px;
+  }
+  .profile__submit-button {
+    margin-bottom: 16px;
+    padding: 0;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: center;
+  }
+  .profile__caption {
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .profile__input-field:last-of-type {
+    border-bottom: none;
+    margin-bottom: 379px;
+  }
+}
