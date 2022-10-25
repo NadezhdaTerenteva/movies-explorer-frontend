@@ -1,10 +1,9 @@
 import "./SidebarMenu.css";
 import AccountIcon from "../../images/account_icon-min.svg";
-import CloseButtonIcon from "../../images/close-button_icon-min.svg";
 
 function SidebarMenu() {
   return (
-    <div className="sidebar-menu sidebar-menu_opened">
+    <div className="sidebar-menu">
       <div className="sidebar-menu__content">
       <button
           className="sidebar-menu__close-button"

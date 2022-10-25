@@ -3,6 +3,7 @@ import "./Profile.css";
 function Profile() {
   return (
     <section className="profile">
+      <div className="profile-content">
       <h3 className="profile__header">Привет, Виталий!</h3>
       <form className="profile__form">
         <div className="profile__input-field">
@@ -35,6 +36,7 @@ function Profile() {
       <h4 className="profile__caption">
         <a className="profile__caption profile__caption-link"> Выйти из аккаунта</a>
       </h4>
+      </div>
     </section>
   );
 }

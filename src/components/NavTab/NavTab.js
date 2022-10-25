@@ -6,13 +6,13 @@ function NavTab() {
       <nav>
         <ul className="nav-tab__links"> 
           <li>
-            <a href="https://yandex.ru/maps" target="_blank" rel="noreferrer" className="nav-tab__link">О проекте</a>
+            <a href="#about-project" className="nav-tab__link">О проекте</a>
           </li>
           <li>
-            <a href="https://yandex.ru/maps" target="_blank" rel="noreferrer" className="nav-tab__link">Технологии</a>
+            <a href="#techs" className="nav-tab__link">Технологии</a>
           </li>
           <li>
-            <a href="https://yandex.ru/maps" target="_blank" rel="noreferrer" className="nav-tab__link">Студент</a>
+            <a href="#about-me" className="nav-tab__link">Студент</a>
           </li>
         </ul>
       </nav>

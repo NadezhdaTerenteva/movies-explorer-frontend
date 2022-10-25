@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 
 import Logo from '../../images/Logo-min.svg';
 
@@ -29,7 +30,10 @@ function Register({ onRegister }) {
 
   return (
     <div className="register">
+    <div className="register-content">
+      <Link to="/">
       <img src={Logo} alt="Лого" className="logo_in-forms"></img>
+      </Link>
       <h3 className="register__header">Добро пожаловать!</h3>
       <form onSubmit={handleSubmit} className="register__form">
         <label for="name" className="form-label">Имя</label>
@@ -70,11 +74,12 @@ function Register({ onRegister }) {
       </form>
       <h4 className="register__caption">
         Уже зарегистрированы?
-        <a className="register__caption register__caption-link">
+        <Link to="/signin" className="register__caption register__caption-link">
           {" "}
           Войти
-        </a>
+        </Link>
       </h4>
+      </div>
     </div>
   );
 }

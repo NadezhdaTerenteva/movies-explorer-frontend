@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Logo from '../../images/Logo-min.svg';
 import AccountIcon from '../../images/account_icon-min.svg';
 import BurgerMenu from '../../images/burger-menu-icon-min.svg';
@@ -7,26 +8,29 @@ function Header() {
   return ( 
     <>
       <header className="header header_theme_dark">
+      <Link to="/">
         <img src={Logo} alt="Лого" className="header__logo"></img>
+      </Link>
         <div className="header__buttons">
-          <a href="https://yandex.ru/maps" target="_blank" rel="noreferrer" className="header__button_signup">Регистрация</a>
-          <a href="https://yandex.ru/maps" target="_blank" rel="noreferrer" className="header__button_signin">Войти</a>
+          <Link to="/signup" className="header__button_signup">Регистрация</Link>
+          <Link to="/signin" className="header__button_signin">Войти</Link>
         </div>
       </header> 
 
       <header className="header">
+      <Link to="/">
       <img src={Logo} alt="Лого" className="header__logo"></img>
+      </Link>
       <div className="header__links">
-        <a href="https://yandex.ru/maps" target="_blank" rel="noreferrer" className="header__link header__link-films">Фильмы</a>
-        <a href="https://yandex.ru/maps" target="_blank" rel="noreferrer" className="header__link header__link-saved-films">Сохранённые фильмы</a>
-        <a href="https://yandex.ru/maps" target="_blank" rel="noreferrer" className="header__link header__link-account">
+        <Link to="/movies" className="header__link header__link-films">Фильмы</Link>
+        <Link to="/saved-movies" className="header__link header__link-saved-films">Сохранённые фильмы</Link>
+        <Link to="/profile" className="header__link header__link-account">
             <p className="header__link-account-text">Аккаунт</p>
             <img src={AccountIcon} alt="Иконка" className="header__link-account-icon"></img>
-        </a>
-        <a href="https://yandex.ru/maps" target="_blank" rel="noreferrer" className="header__burger-menu">
+        </Link>
+        <a href="#" target="_blank" rel="noreferrer" className="header__burger-menu">
             <img src={BurgerMenu} alt="Иконка" className="header__burger-menu-icon"></img>
         </a>
-
       </div>
     </header> 
     </>

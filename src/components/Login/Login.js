@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 
 import Logo from "../../images/Logo-min.svg";
 
@@ -31,11 +32,13 @@ function Login({ onLogin }) {
 
   return (
     <div className="login">
+    <div className="login-content">
+    <Link to="/">
       <img
         src={Logo}
         alt="Лого"
         className="logo_in-forms"
-      ></img>
+      ></img></Link>
       <h3 className="login__header">Рады видеть!</h3>
       <form onSubmit={handleSubmit} className="register__form">
       <label for="password" className="form-label">
@@ -71,11 +74,12 @@ function Login({ onLogin }) {
       </form>
       <h4 className="login__caption">
       Ещё не зарегистрированы?
-        <a className="login__caption login__caption-link">
+        <Link to="/signup" className="login__caption login__caption-link">
           {" "}
           Регистрация
-        </a>
+        </Link>
       </h4>
+    </div>
     </div>
   );
 }

@@ -1,7 +1,12 @@
 .login {
-  width: 100%;
-  max-width: 396px;
-  margin: auto;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-content {
+  width: 396px;
 }
 
 .login__header {
@@ -32,7 +37,11 @@
 }
 
 .login__input:last-of-type {
-  margin-bottom: 179px;
+  margin-bottom: 160px;
+}
+
+.login__input:focus {
+  background-color: rgba(43, 224, 128, 0.1)
 }
 
 .login__submit-button {
@@ -45,7 +54,6 @@
   border-radius: 3px;
   background-color: #3456f3;
   font-family: "Inter", Arial, sans-serif;
-  font-family: "Inter";
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -62,7 +70,7 @@
 .login__caption {
   width: 100%;
   padding: 0;
-  margin-bottom: 70px;
+  margin: 0;
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
@@ -83,18 +91,28 @@
 }
 
 @media screen and (max-width: 425px) {
-  .login {
-    max-width: 260px;
+  .login-content {
+    max-width: 386px;
   }
   .login__header {
     text-align: center;
   }
   .login__input:last-of-type {
-    margin-bottom: 267px;
+    margin-bottom: 220px;
+  }
+  .login__submit-button {
+    margin-bottom: 14px;
   }
   .login__caption {
     font-size: 12px;
     line-height: 15px;
+    margin-bottom: 30px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .login-content {
+    max-width: 260px;
   }
 }
 
@@ -134,17 +152,10 @@
 
 @media screen and (max-width: 425px) {
   .logo_in-forms {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 56px;
     margin-bottom: 50px;
-    align-self: center;
   }
-}
-
-/* вынести классы в отдельный элемент*/
-.form-label {
-  margin-bottom: 10px;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 10px;
-  line-height: 12px;
-  color: #a0a0a0;
 }
