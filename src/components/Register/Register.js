@@ -43,6 +43,7 @@ function Register({ onRegister }) {
           id="name"
           name="name"
           value={registerData.name || ""}
+          placeholder="Иван"
           required
           onChange={handleChange}
         ></input>
@@ -53,6 +54,7 @@ function Register({ onRegister }) {
           id="email"
           name="email"
           value={registerData.email || ""}
+          placeholder="ivan.ivanov@yandex.ru"
           required
           onChange={handleChange}
         ></input>

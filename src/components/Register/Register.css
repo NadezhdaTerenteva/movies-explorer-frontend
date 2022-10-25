@@ -46,6 +46,14 @@
   background-color: rgba(43, 224, 128, 0.1)
 }
 
+.register__input::placeholder {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: #A0A0A0;
+}
+
 .register__submit-button {
   width: 100%;
   height: 45px;

@@ -41,7 +41,7 @@
 }
 
 .login__input:focus {
-  background-color: rgba(43, 224, 128, 0.1)
+  background-color: rgba(43, 224, 128, 0.1);
 }
 
 .login__submit-button {
