@@ -7,3 +7,5 @@ In the project directory, you can run:
 
 ### `npm run start`
 to see the web-page in browser. 
+
+Ссылка на макет: https://disk.yandex.ru/d/DNF2K1irJV6zVw

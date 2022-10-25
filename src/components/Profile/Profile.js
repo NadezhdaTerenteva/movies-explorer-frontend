@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import "./Profile.css";
 
 function Profile() {
@@ -34,7 +36,7 @@ function Profile() {
         </button>
       </form>
       <h4 className="profile__caption">
-        <a className="profile__caption profile__caption-link"> Выйти из аккаунта</a>
+        <Link to="/" className="profile__caption profile__caption-link"> Выйти из аккаунта</Link>
       </h4>
       </div>
     </section>

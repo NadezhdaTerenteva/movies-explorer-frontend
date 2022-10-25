@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { Route, Switch } from 'react-router-dom';
 
 import Main from '../Main/Main';
@@ -15,11 +16,15 @@ import './App.css';
 
 
 function App() {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
   return (
     <div className="app">
       <Switch>
         <Route exact path="/">
-        <Header />
+        <Header 
+        isLoggedIn={isLoggedIn}/>
         <Main />
         <Footer />
         </Route>
@@ -30,7 +35,7 @@ function App() {
           <SavedMovies />
         </Route>
         <Route path="/profile">
-         <Header />
+          <Header />
           <Profile />
         </Route>
         <Route path="/signup">
