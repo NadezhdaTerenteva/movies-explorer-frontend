@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import Logo from '../../images/Logo-min.svg';
+import Logo from "../../images/Logo-min.svg";
 
 function Register({ onRegister }) {
   const [registerData, setRegisterData] = useState({
@@ -29,60 +29,70 @@ function Register({ onRegister }) {
   };
 
   return (
-    <div className="register">
-    <div className="register-content">
-      <Link to="/">
-      <img src={Logo} alt="Лого" className="logo_in-forms"></img>
-      </Link>
-      <h3 className="register__header">Добро пожаловать!</h3>
-      <form onSubmit={handleSubmit} className="register__form">
-        <label for="name" className="form-label">Имя</label>
-        <input
-          className="register__input"
-          type="text"
-          id="name"
-          name="name"
-          value={registerData.name || ""}
-          placeholder="Иван"
-          required
-          onChange={handleChange}
-        ></input>
-        <label for="email" className="form-label">E-mail</label>
-        <input
-          className="register__input"
-          type="email"
-          id="email"
-          name="email"
-          value={registerData.email || ""}
-          placeholder="ivan.ivanov@yandex.ru"
-          required
-          onChange={handleChange}
-        ></input>
-        <label for="password" className="form-label">Пароль</label>
-        <input
-          className="register__input"
-          type="password"
-          id="password"
-          name="password"
-          autoComplete="current-password"
-          value={registerData.password || ""}
-          minLength="6" maxLength="10"
-          required
-          onChange={handleChange}
-        ></input>
-        <button className="register__submit-button" type="submit">
-          Зарегистрироваться
-        </button>
-      </form>
-      <h4 className="register__caption">
-        Уже зарегистрированы?
-        <Link to="/signin" className="register__caption register__caption-link">
-          {" "}
-          Войти
+    <section className="register">
+      <div className="register-content">
+        <Link to="/">
+          <img src={Logo} alt="Лого" className="logo_in-forms"></img>
         </Link>
-      </h4>
+        <h3 className="register__header">Добро пожаловать!</h3>
+        <form onSubmit={handleSubmit} className="register__form">
+          <label for="name" className="form-label">
+            Имя
+          </label>
+          <input
+            className="register__input"
+            type="text"
+            id="name"
+            name="name"
+            value={registerData.name || ""}
+            placeholder="Иван"
+            required
+            onChange={handleChange}
+          ></input>
+          <label for="email" className="form-label">
+            E-mail
+          </label>
+          <input
+            className="register__input"
+            type="email"
+            id="email"
+            name="email"
+            value={registerData.email || ""}
+            placeholder="ivan.ivanov@yandex.ru"
+            required
+            onChange={handleChange}
+          ></input>
+          <label for="password" className="form-label">
+            Пароль
+          </label>
+          <input
+            className="register__input"
+            type="password"
+            id="password"
+            name="password"
+            autoComplete="current-password"
+            value={registerData.password || ""}
+            minLength="6"
+            maxLength="10"
+            required
+            onChange={handleChange}
+          ></input>
+          <button className="register__submit-button" type="submit">
+            Зарегистрироваться
+          </button>
+        </form>
+        <h4 className="register__caption">
+          Уже зарегистрированы?
+          <Link
+            to="/signin"
+            className="register__caption register__caption-link"
+          >
+            {" "}
+            Войти
+          </Link>
+        </h4>
       </div>
-    </div>
+    </section>
   );
 }
 

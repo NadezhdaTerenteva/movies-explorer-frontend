@@ -3,12 +3,12 @@ import './MoviesCardList.css';
 
 function MoviesCardList() {
   return (
-    <div className="movies-card-list">
+    <section className="movies-card-list">
         <MoviesCard></MoviesCard>
         <MoviesCard></MoviesCard>
         <MoviesCard></MoviesCard>
         <MoviesCard></MoviesCard>
-    </div>
+    </section>
     );
 }
 

@@ -128,6 +128,9 @@
 }
 
 @media screen and (max-width: 340px) {
+  .techs {
+    background-color: #FFFFFF;
+  }
   .techs__stack {
     max-width: 260px;
   }

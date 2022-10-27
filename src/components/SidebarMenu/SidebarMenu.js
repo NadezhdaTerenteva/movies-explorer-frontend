@@ -5,7 +5,7 @@ import AccountIcon from "../../images/account_icon-min.svg";
 
 function SidebarMenu() {
   return (
-    <div className="sidebar-menu">
+    <section className="sidebar-menu">
       <div className="sidebar-menu__content">
         <button className="sidebar-menu__close-button" type="button" />
         <div className="sidebar-menu__links">
@@ -37,7 +37,7 @@ function SidebarMenu() {
           </Link>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

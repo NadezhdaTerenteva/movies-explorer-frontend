@@ -3,12 +3,13 @@ import './SearchForm.css';
 function SearchForm() {
   return (
     <form className="search-form">
-      <label for="search-form__itextfield">
+      <label for="search-form__textfield">
         <input 
-        type="text" 
+        type="search" 
         placeholder="Фильм"
         className="search-form__textfield"
         id="search-form__textfield"
+        required
         />
       </label>
       <button 

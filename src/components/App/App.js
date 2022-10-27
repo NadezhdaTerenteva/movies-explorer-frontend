@@ -20,19 +20,24 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   return (
-    <div className="app">
+    <section className="app">
       <Switch>
         <Route exact path="/">
-        <Header 
-        isLoggedIn={isLoggedIn}/>
+        <Header />
         <Main />
         <Footer />
         </Route>
         <Route path="/movies">
+        <Header 
+        isLoggedIn={isLoggedIn}/>
           <Movies />
+          <Footer />
         </Route>
         <Route path="/saved-movies">
+        <Header 
+        isLoggedIn={isLoggedIn}/>
           <SavedMovies />
+          <Footer />
         </Route>
         <Route path="/profile">
           <Header />
@@ -50,7 +55,7 @@ function App() {
       </Switch>
       
       <SidebarMenu></SidebarMenu>
-    </div>
+    </section>
   );
 }
 
