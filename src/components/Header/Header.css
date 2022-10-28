@@ -1,0 +1,148 @@
+.header {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  min-height: 74px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.header_theme_dark {
+  background-color: #073042;
+}
+
+.header__logo {
+  margin-left: 70px;
+  height: 38px;
+  width: 38px;
+}
+
+.header__buttons {
+  margin-right: 70px;
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.header__links {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-left: 44px;
+  margin-right: 70px;
+}
+
+.header__link {
+  display: block;
+  font-size: 13px;
+  line-height: 18px;
+  color: #000000;
+  text-decoration: none;
+}
+
+.header__link-films {
+  display: block;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 18px;
+  color: #000000;
+  text-decoration: none;
+}
+
+.header__link-saved-films {
+  margin-left: 16px;
+  margin-right: auto;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.header__link-account {
+  display: flex;
+  align-items: center;
+}
+
+.header__link-account-text {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.header__link-account-icon {
+  margin-left: 17px;
+  padding: 8px;
+  background: #f9f9f9;
+  border-radius: 4px;
+}
+
+.header__buttons:hover {
+  opacity: 0.8;
+}
+
+.header__button_signup {
+  color: #ffffff;
+  text-decoration: none;
+  padding-right: 30px;
+}
+
+.header__button_signin {
+  display: block;
+  padding: 8px 20px;
+  background: #2be080;
+  border-radius: 3px;
+  color: #000000;
+  text-decoration: none;
+}
+
+.header__burger-menu {
+  display: none;
+}
+
+@media screen and (max-width: 800px) {
+  .header__logo {
+    margin-left: 30px;
+  }
+  .header__buttons {
+    margin-right: 30px;
+  }
+  .header__links {
+    margin-right: 30px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header__link {
+    display: none;
+  }
+  .header__burger-menu {
+    display: block;
+    margin-left: auto;
+  }
+  .header__burger-menu:hover {
+    opacity: 0.7;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .header__logo {
+    margin-left: 14px;
+  }
+  .header__buttons {
+    margin-right: 14px;
+    font-size: 12px;
+  }
+  .header__links {
+    margin-right: 14px;
+  }
+  .header__burger-menu-icon {
+    width: 40px;
+    height: 43px;
+  }
+}
