@@ -75,6 +75,11 @@
   cursor: pointer;
 }
 
+.profile__submit-button_disabled {
+  color: #8b8b8b;
+  cursor: default;
+}
+
 .profile__caption {
   width: 100%;
   padding: 0;

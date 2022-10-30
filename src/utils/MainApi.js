@@ -16,39 +16,6 @@ export default class MainApi {
     );
   }
 
-  createUser(name, email, password) {
-    return fetch(`${this._url}/signup`, {
-      method: "POST",
-      headers: this._headers,
-      credentials: "include",
-      body: JSON.stringify({
-        name,
-        email,
-        password,
-      }),
-    }).then(this._checkResult);
-  }
-
-  login(email, password) {
-    return fetch(`${this._url}/signin`, {
-      method: "POST",
-      headers: this._headers,
-      credentials: "include",
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    }).then(this._checkResult);
-  }
-
-  logout = () => {
-    return fetch(`${this._url}/signout`, {
-      method: "POST",
-      headers: this._headers,
-      credentials: 'include',
-    }).then(this._checkResult);
-  }
-
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
       method: "GET",
@@ -78,7 +45,7 @@ export default class MainApi {
     }).then(this._checkResult);
   }
 
-  createMovie(data) {
+  addMovie(data) {
     return fetch(`${this._url}/movies`, {
       method: "POST",
       headers: this._headers,
