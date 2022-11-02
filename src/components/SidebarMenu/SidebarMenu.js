@@ -4,32 +4,20 @@ import { Link } from "react-router-dom";
 import "./SidebarMenu.css";
 import AccountIcon from "../../images/account_icon-min.svg";
 
-function SidebarMenu() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  function handleSidebarOpen() {
-    if (!isOpen) {
-      setIsOpen(true);
-    }
-  }
-
-  function handleSidebarClose() {
-    if (isOpen) {
-      setIsOpen(false);
-    }
-  }
+function SidebarMenu({ visible, toggleSideBar }) {
+ 
 
   const sidebarMenuClassName = `${
-    isOpen ? "sidebar-menu sidebar-menu_opened" : "sidebar-menu"
+    visible ? "sidebar-menu sidebar-menu_opened" : "sidebar-menu"
   }`;
 
   return (
     <section className={sidebarMenuClassName}>
-      <div className="sidebar-menu__content">
+      <div className={`sidebar-menu__content ${visible && "sidebar-menu__content_animated"}`}>
         <button
           className="sidebar-menu__close-button"
           type="button"
-          onClick={handleSidebarClose}
+          onClick={toggleSideBar}
         />
         <div className="sidebar-menu__links">
           <Link to="/" className="sidebar-menu__link sidebar-menu__link-main">

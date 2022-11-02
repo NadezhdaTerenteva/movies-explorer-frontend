@@ -38,6 +38,11 @@ function App() {
 
   const history = useHistory();
 
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+
+  const toggleSideBar = () => {
+    setIsSideBarOpen(!isSideBarOpen)
+  }
 
   //  // Получаем данные пользователя
    useEffect(() => {
@@ -218,9 +223,12 @@ function App() {
             isLoggedIn={isLoggedIn}
             component={
               <>
-              <Header isLoggedIn={isLoggedIn} />
-            <Movies />
-            <Footer />
+              <Header
+                isLoggedIn={isLoggedIn}
+                toggleSideBar={toggleSideBar}
+              />
+              <Movies />
+              <Footer />
               </>
             }
           >
@@ -259,7 +267,10 @@ function App() {
           </Route>
         </Switch>
 
-        <SidebarMenu></SidebarMenu>
+        <SidebarMenu
+          visible={isSideBarOpen}
+          toggleSideBar={toggleSideBar}
+        ></SidebarMenu>
         <InfoTooltip
           name="infotooltip"
           isLoggedIn={isLoggedIn}

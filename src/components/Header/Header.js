@@ -3,7 +3,7 @@ import Logo from "../../images/Logo-min.svg";
 import AccountIcon from "../../images/account_icon-min.svg";
 import "./Header.css";
 
-function Header({ isLoggedIn }) {
+function Header({ isLoggedIn, toggleSideBar }) {
   return (
     <Switch>
       isLoggedIn ? (
@@ -47,8 +47,10 @@ function Header({ isLoggedIn }) {
               ></img>
             </Link>
             <button 
-            type="button"
-            className="header__burger-menu">
+              type="button"
+              className="header__burger-menu"
+              onClick={toggleSideBar}
+            >
             </button>
           </div>
         </header>
