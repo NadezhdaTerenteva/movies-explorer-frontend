@@ -3,6 +3,8 @@ import React from "react";
 import Success from "../../images/success.svg";
 import Fail from "../../images/fail.svg";
 
+import './InfoTooltip.css';
+
 function InfoTooltip({ isOpen, onClose, name, userStatus, tooltipMessage }) {
   return (
     <div className={`popup ${isOpen && "popup_opened"}`} id={`popup-${name}`}>

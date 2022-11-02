@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useHistory } from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 
-import * as auth from "../../utils/Auth.js";
-import { mainApi } from "../../utils/MainApi.js";
-import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.js";
+import * as auth from "../../utils/Auth";
+import {mainApi} from "../../utils/MainApi";
+
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
@@ -15,15 +16,15 @@ import Register from "../Register/Register";
 import Login from "../Login/Login";
 import NotFound from "../NotFound/NotFound";
 import SidebarMenu from "../SidebarMenu/SidebarMenu";
-import InfoTooltip from "../InfoTooltip/InfoTooltip.js";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 
 import "./App.css";
 
-import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 function App() {
 
-  const [currentUser, setCurrentUser] = useState({ name: "", email: "" });
+  const [currentUser, setCurrentUser] = useState({});
 
   const [movies, setMovies] = useState([]);
 
@@ -33,39 +34,43 @@ function App() {
 
   const [tooltipMessage, setTooltipMessage] = useState("");
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const history = useHistory();
 
-  // Получаем данные пользователя
-  useEffect(() => {
+
+  //  // Получаем данные пользователя
+   useEffect(() => {
     if (isLoggedIn)
-      mainAapi
+      mainApi
         .getUserInfo()
         .then((res) => {
           setCurrentUser(res)
-          setIsLoggedIn(true)
+          setIsLoggedIn(true);
         })
         .catch((err) => {
+          console.log('we are here');
+          setIsLoggedIn(false);
           console.log(err);
         });
   }, [isLoggedIn]);
 
+
   // Получаем сохраненные фильмы
-  useEffect(() => {
-    if (isLoggedIn)
-      mainApi
-        .getMovies()
-        .then((moviesList) => {
+  // useEffect(() => {
+  //   if (isLoggedIn)
+  //     mainApi
+  //       .getMovies()
+  //       .then((moviesList) => {
           
-          if (moviesList) {
-            setMovies(moviesList)
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-  }, [isLoggedIn]);
+  //         if (moviesList) {
+  //           setMovies(moviesList)
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  // }, [isLoggedIn]);
 
   // добавление фильма в сохраненные
   function handleAddMovie(movie) {
@@ -125,54 +130,65 @@ function App() {
     setInfotooltipOpen(false);
   }
 
-  useEffect(() => {
-    if (isLoggedIn) {
-    auth
-      .getContent()
-      .then((data) => {
-        // setUserEmail(data.data.email);
-        setIsLoggedIn(true);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    }
-  }, [isLoggedIn]);
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //   auth
+  //     .getContent()
+  //     .then((data) => {
+  //       // setUserEmail(data.data.email);
+  //       setIsLoggedIn(true);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  //   }
+  // }, [isLoggedIn]);
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      history.push("/profile");
-    }
-  }, [isLoggedIn, history]);
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     history.push("/profile");
+  //   }
+  // }, [isLoggedIn, history]);
 
   function onLogin(data) {
     const { email, password } = data;
     return auth
       .authorize(email, password)
-      .then((res) => {
-        // setUserEmail(email);
+      .then((user) => {
         setIsLoggedIn(true);
+        //setCurrentUser(user);
+        history.push('/movies');
       })
       .catch((err) => {
-        handleInfoTooltipClick();
-        setStatusMessage(false);
-        setTooltipMessage("Что-то пошло не так! Попробуйте ещё раз.");
-        console.log(err);
-      });
+        if (err.code === 401) {
+          setTooltipMessage("Неверный логин или пароль");
+          history.push('/signin');
+        } else {
+          setStatusMessage(false);
+          setTooltipMessage("Что-то пошло не так! Попробуйте ещё раз.");
+          history.push('/signin');
+        }
+      })
   }
+
 
   function onRegister(data) {
     return auth
       .register(data)
-      .then(() => {
-        history.push("/signin");
+      .then((user) => {
         setStatusMessage(true);
         setTooltipMessage("Вы успешно зарегистрировались!");
+        history.push("/signin");
       })
       .catch((err) => {
-        setStatusMessage(false);
-        setTooltipMessage("Что-то пошло не так! Попробуйте ещё раз.");
-        console.log(err);
+        if (err.code === 409) {
+          setStatusMessage(false);
+          setTooltipMessage("Пользователь с таким email уже зарегистрирован");
+        } 
+        else {
+          setStatusMessage(false);
+          setTooltipMessage("Что-то пошло не так! Попробуйте ещё раз.");
+        }
       })
       .finally(() => {
         handleInfoTooltipClick();
@@ -197,22 +213,39 @@ function App() {
             <Main />
             <Footer />
           </Route>
-          <ProtectedRoute path="/movies">
-            <Header isLoggedIn={isLoggedIn} />
+          <ProtectedRoute
+            path="/movies"
+            isLoggedIn={isLoggedIn}
+            component={
+              <>
+              <Header isLoggedIn={isLoggedIn} />
             <Movies />
             <Footer />
+              </>
+            }
+          >
+            
           </ProtectedRoute>
-          <ProtectedRoute path="/saved-movies">
+          <ProtectedRoute path="/saved-movies" isLoggedIn={isLoggedIn}>
             <Header isLoggedIn={isLoggedIn} />
             <SavedMovies />
             <Footer />
           </ProtectedRoute>
-          <ProtectedRoute path="/profile">
+
+        
+          <ProtectedRoute
+            path="/profile" 
+            isLoggedIn={isLoggedIn}
+            component ={<Profile 
+              isLoggedIn={isLoggedIn}
+              onLogout={onLogout}
+              handleUpdateUser={handleUpdateUser}
+              />}
+          >
+            
             <Header isLoggedIn={isLoggedIn}/>
-            <Profile 
-            onLogout={onLogout}
-            handleUpdateUser={handleUpdateUser}
-            />
+            
+          
           </ProtectedRoute>
           <Route path="/signup">
             <Register onRegister={onRegister} />

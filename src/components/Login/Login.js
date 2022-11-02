@@ -38,7 +38,7 @@ function Login({ onLogin }) {
         </Link>
         <h3 className="login__header">Рады видеть!</h3>
         <form onSubmit={handleSubmit} className="register__form">
-          <label for="password" className="form-label">
+          <label className="form-label">
             E-mail
           </label>
           <input
@@ -50,7 +50,7 @@ function Login({ onLogin }) {
             required
             onChange={handleChange}
           ></input>
-          <label for="password" className="form-label">
+          <label className="form-label">
             Пароль
           </label>
           <input

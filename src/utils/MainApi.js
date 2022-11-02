@@ -1,4 +1,4 @@
-export default class MainApi {
+class MainApi {
   constructor(url, token) {
     this._url = url;
     this._token = token;
@@ -8,8 +8,8 @@ export default class MainApi {
   }
 
   async _checkResult(response) {
-    if (res.ok) {
-      const resData = await res.json();
+    if (response.ok) {
+      const resData = await response.json();
       return resData.data;
     }
     return Promise.reject(new Error(`Ошибка ${response.status}: ${response.statusText}`)
@@ -75,4 +75,4 @@ export default class MainApi {
   }
 }
 
-const mainApi = new MainApi("https://back.movie-explorer.nomoredomains.icu");
+export const mainApi = new MainApi("http://localhost:4000");

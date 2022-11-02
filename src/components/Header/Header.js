@@ -1,7 +1,6 @@
 import { Link, Route, Switch } from "react-router-dom";
 import Logo from "../../images/Logo-min.svg";
 import AccountIcon from "../../images/account_icon-min.svg";
-import BurgerMenu from "../../images/burger-menu-icon-min.svg";
 import "./Header.css";
 
 function Header({ isLoggedIn }) {
@@ -47,13 +46,10 @@ function Header({ isLoggedIn }) {
                 className="header__link-account-icon"
               ></img>
             </Link>
-            <div className="header__burger-menu">
-              <img
-                src={BurgerMenu}
-                alt="Иконка"
-                className="header__burger-menu-icon"
-              ></img>
-            </div>
+            <button 
+            type="button"
+            className="header__burger-menu">
+            </button>
           </div>
         </header>
       </Route>

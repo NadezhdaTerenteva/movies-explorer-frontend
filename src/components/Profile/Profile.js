@@ -3,10 +3,12 @@ import { useState, useEffect } from "react";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 import { Link } from "react-router-dom";
+import Header from '../Header/Header';
+
 
 import "./Profile.css";
 
-function Profile({ onLogout, onUpdateUser }) {
+function Profile({ isLoggedIn, onLogout, onUpdateUser }) {
 
   const [name, setName] = useState("");
 
@@ -36,15 +38,19 @@ function Profile({ onLogout, onUpdateUser }) {
     setEmail(currentUser.email);
   }, [currentUser]);
 
+ 
   return (
+    <>
+    <Header isLoggedIn={isLoggedIn}/>
     <section className="profile">
+      
       <div className="profile-content">
         <h3 className="profile__header">{`Привет, ${currentUser.name || ''}!`}</h3>
         <form 
           className="profile__form"
           onSubmit={handleSubmit}>
           <div className="profile__input-field">
-            <label for="name" className="profile__form-label">
+            <label className="profile__form-label">
               Имя
             </label>
             <input
@@ -58,7 +64,7 @@ function Profile({ onLogout, onUpdateUser }) {
             ></input>
           </div>
           <div className="profile__input-field">
-            <label for="email" className="profile__form-label">
+            <label className="profile__form-label">
               E-mail
             </label>
             <input
@@ -86,6 +92,7 @@ function Profile({ onLogout, onUpdateUser }) {
         </h4>
       </div>
     </section>
+    </>
   );
 }
 

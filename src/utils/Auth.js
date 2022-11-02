@@ -1,10 +1,10 @@
-export const BASE_URL = "https://back.movie-explorer.nomoredomains.icu";
-
-const checkResponse = (response) => {
-  return response.ok
-    ? response.json()
+//export const BASE_URL = "https://back.movie-explorer.nomoredomains.icu";
+export const BASE_URL = "http://localhost:4000";
+const checkResponse = (res) => {
+  return res.ok
+    ? res.json()
     : Promise.reject(
-        new Error(`Ошибка ${response.status}: ${response.statusText}`)
+        new Error(`Ошибка ${res.status}: ${res.statusText}`)
       );
 };
 
