@@ -5,6 +5,14 @@
   max-width: 360px;
 }
 
+.movies-card:hover .movies-card__save-button_active {
+  visibility: visible;
+}
+
+.movies-card:hover .movies-card__delete-icon_active {
+  visibility: visible;
+}
+
 .movies-card__container {
   display: block;
   height: 201px;
@@ -34,7 +42,7 @@
   font-size: 10px;
   line-height: 9px;
   border: none;
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
 .movies-card__save-button:hover {
@@ -43,7 +51,8 @@
 }
 
 .movies-card__save-button_active {
-  visibility: visible;
+  /*visibility: visible;*/
+  transition: visibility 0.1s ease-in-out;
 }
 
 .movies-card__saved-icon {
@@ -84,7 +93,8 @@
 }
 
 .movies-card__delete-icon_active {
-  visibility: visible;
+  /*visibility: visible;*/
+  transition: visibility 0.1s ease-in-out;
 }
 
 .movies-card__delete-icon_active:hover {

@@ -6,7 +6,6 @@ import './MoviesCardList.css';
 function MoviesCardList({ children }) {
 
   const screenWidth = useScreenWidth();
-
   const location = useLocation();
 
  // добавление карточек при клике "Еще"
@@ -22,18 +21,11 @@ function MoviesCardList({ children }) {
 }  
 
   return (
-    <>
+    
     <section className="movies-card-list">
         { children }
     </section>
-    <button
-    className="movies-card-list__more-button"
-    onClick={handleClickShowMore}
-  >
-    Ещё
-  </button>
-  </>
-    );
+  );
 }
 
 export default MoviesCardList;

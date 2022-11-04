@@ -26,7 +26,7 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState({});
 
-  const [movies, setMovies] = useState([]);
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
 
   const [isInfoTooltipOpen, setInfotooltipOpen] = useState(false);
 
@@ -61,27 +61,26 @@ function App() {
   }, [isLoggedIn]);
 
 
-  // Получаем сохраненные фильмы
-  // useEffect(() => {
-  //   if (isLoggedIn)
-  //     mainApi
-  //       .getMovies()
-  //       .then((moviesList) => {
-          
-  //         if (moviesList) {
-  //           setMovies(moviesList)
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  // }, [isLoggedIn]);
+  //Получаем сохраненные фильмы
+  useEffect(() => {
+    if (isLoggedIn)
+      mainApi
+        .getFavoriteMovies()
+        .then((moviesList) => {
+          if (moviesList) {
+            setFavoriteMovies(moviesList)
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  }, [isLoggedIn]);
 
   // добавление фильма в сохраненные
   function handleAddMovie(movie) {
     mainApi
       .addMovie(movie)
-      .then(newMovie => setMovies([newMovie, ...movies]))
+      .then(newMovie => setFavoriteMovies([newMovie, ...favoriteMovies]))
       .catch((err) => {
         console.log(err);
       });
@@ -89,32 +88,21 @@ function App() {
 
   //удаление фильма из сохраненных
   function handleDeleteMovie(movie) {
-    const isOwn = movie.owner === currentUser._id;
     
-    if (isOwn) {
-      mainApi
-        .deleteMovie(movie._id)
-        .then(() => {
-          setMovies((prevState) => prevState.filter((i) => movie._id !== i._id));
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    const savedMovie = favoriteMovies.find(item=>item.id === movie.id);
+    
+    if (!savedMovie) return;
+
+    mainApi
+      .deleteMovie(savedMovie._id)
+      .then(() => {
+        setFavoriteMovies((prevState) => prevState.filter((item) => savedMovie._id !== item._id));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
-  
-  // const movieList = movies.map((item) => {
-  //   return (
-  //     <MoviesCard
-  //       key={item._id}
-  //       card={item}
-  //       // onCardClick={handleCardClick}
-  //       // onCardLike={handleCardLike}
-  //       // onCardDelete={handleCardDelete}
-  //     />
-  //   );
-  // });
 
   function handleUpdateUser(userData) {
     mainApi
@@ -135,25 +123,6 @@ function App() {
     setInfotooltipOpen(false);
   }
 
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //   auth
-  //     .getContent()
-  //     .then((data) => {
-  //       // setUserEmail(data.data.email);
-  //       setIsLoggedIn(true);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  //   }
-  // }, [isLoggedIn]);
-
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     history.push("/profile");
-  //   }
-  // }, [isLoggedIn, history]);
 
   function onLogin(data) {
     const { email, password } = data;
@@ -227,20 +196,31 @@ function App() {
                 isLoggedIn={isLoggedIn}
                 toggleSideBar={toggleSideBar}
               />
-              <Movies />
+              <Movies
+                favorites={favoriteMovies}
+                addToFavorites={handleAddMovie}
+                removeFromFavorites={handleDeleteMovie}
+              />
               <Footer />
               </>
             }
           >
             
           </ProtectedRoute>
-          <ProtectedRoute path="/saved-movies" isLoggedIn={isLoggedIn}>
-            <Header isLoggedIn={isLoggedIn} />
-            <SavedMovies />
-            <Footer />
-          </ProtectedRoute>
-
-        
+          <ProtectedRoute
+            path="/saved-movies"
+            isLoggedIn={isLoggedIn}
+            component={
+              <>
+                <Header isLoggedIn={isLoggedIn} />
+                <SavedMovies
+                  favorites={favoriteMovies}
+                  removeFromFavorites={handleDeleteMovie}
+                />
+                <Footer />
+              </>
+            }
+          />
           <ProtectedRoute
             path="/profile" 
             isLoggedIn={isLoggedIn}

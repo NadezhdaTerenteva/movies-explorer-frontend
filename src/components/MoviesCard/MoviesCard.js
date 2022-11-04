@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 
 import "./MoviesCard.css";
 import { FILE_ROOT } from "../../utils/MoviesApi";
 
-function MoviesCard({ image, nameRU, duration, trailerLink }) {
-
-  const [isLiked, setIsLiked] = useState(false);
-
-  //const [favouriteMode, setFavouriteMode] = useState(false);
-
+function MoviesCard({ movie, isLiked, onToggleState }) {
+  
+  const { image, nameRU, duration, trailerLink } = movie;
+ 
   const location = useLocation();
 
   // преобразование минут в часы
@@ -24,32 +22,20 @@ function MoviesCard({ image, nameRU, duration, trailerLink }) {
   }
 
   function handleCardLike() {
-    setIsLiked(!isLiked);
+    onToggleState(movie, isLiked);
   }
 
   const cardSavedButtonClassName = `${
-    isLiked 
+    isLiked
       ? "movies-card__saved-icon movies-card__saved-icon_active"
       : "movies-card__saved-icon"
   }`;
 
   const cardSaveButtonClassName = `${
-    isLiked 
+    isLiked
       ? "movies-card__save-button"
       : "movies-card__save-button movies-card__save-button_active"
   }`;
-
-  function handleCardDislike() {
-    if (isLiked) {
-      setIsLiked(false);
-    }
-  }
-
-  // const cardDeleteButtonClassName = `${
-    
-  //     ? "movies-card__delete-icon_active"
-  //     : "movies-card__delete-icon"
-  // }`;
 
   return (
     <section className="movies-card">
@@ -65,28 +51,29 @@ function MoviesCard({ image, nameRU, duration, trailerLink }) {
           className="movies-card__img"
         ></img>
       </a>
-      {location.pathname === '/movies' && (
+      {location.pathname === "/movies" && (
         <>
-      <button
-        type="button"
-        onClick={handleCardLike}
-        className={cardSaveButtonClassName}
-      >
-        Сохранить
-      </button>
-      <button
-        type="button"
-        onClick={handleCardLike}
-        className={cardSavedButtonClassName}
-      ></button>
-      </>
+          <button
+            type="button"
+            onClick={handleCardLike}
+            className={cardSaveButtonClassName}
+          >
+            Сохранить
+          </button>
+          <button
+            type="button"
+            onClick={handleCardLike}
+            className={cardSavedButtonClassName}
+          ></button>
+        </>
       )}
-      {location.pathname === '/saved-movies' && (
-      <button
-        type="button"
-        onClick={handleCardDislike}
-        className="movies-card__delete-icon movies-card__delete-icon_active"
-      ></button>
+
+      {location.pathname === "/saved-movies" && (
+        <button
+          type="button"
+          onClick={handleCardLike}
+          className="movies-card__delete-icon movies-card__delete-icon_active"
+        ></button>
       )}
       <div className="movies-card__description">
         <h5 className="movies-card__name">{nameRU}</h5>

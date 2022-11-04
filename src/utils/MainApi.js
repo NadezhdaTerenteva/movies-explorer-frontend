@@ -37,7 +37,7 @@ class MainApi {
   }
 
   //сохраненные фильмы 
-  getMovies() {
+  getFavoriteMovies() {
     return fetch(`${this._url}/movies`, {
       method: "GET",
       headers: this._headers,
@@ -59,7 +59,7 @@ class MainApi {
         image: data.image,
         trailerLink: data.trailerLink,
         thumbnail: data.thumbnail,
-        movieId: data.id,
+        id: data.id,
         nameRU: data.nameRU,
         nameEN: data.nameEN,
       }),
