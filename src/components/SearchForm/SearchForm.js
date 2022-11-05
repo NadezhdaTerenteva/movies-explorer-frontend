@@ -3,14 +3,15 @@ import "./SearchForm.css";
 
 function SearchForm({ searchValue, handleSearch, onClear }) {
   const [inputValue, setInputValue] = useState(searchValue);
-  const [noSearchValue, setNoSearchValue] = useState(null);
+  const [noSearchValue, setNoSearchValue] = useState('');
+
+  useEffect(() => {
+    setNoSearchValue('')
+  }, [inputValue]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    if (!inputValue) {
-      setNoSearchValue("Нужно ввести ключевое слово");
-    }
-    handleSearch(inputValue);
+    inputValue ? handleSearch(inputValue) : setNoSearchValue('Введите ключевое слово!')
   };
 
   const inputOnChange = (e) => {
@@ -29,8 +30,7 @@ function SearchForm({ searchValue, handleSearch, onClear }) {
   }`;
 
   return (
-      <form onSubmit={handleSubmit} className="search-form">
-        {/* <label htmlFor="search-form__textfield"> */}
+      <form onSubmit={handleSubmit} className="search-form" noValidate>
           <input
             type="text"
             placeholder="Фильм"
@@ -40,12 +40,12 @@ function SearchForm({ searchValue, handleSearch, onClear }) {
             onChange={inputOnChange}
             required
           />
-        {/* </label> */}
         <button 
         type="button" 
         className={deleteSearchButtonClassName}
         onClick={onSearchClear}
         ></button>
+        <span className="search-form__error-message">{noSearchValue}</span>
         <button type="submit" className="search-form__button">
           Поиск
         </button>

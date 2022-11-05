@@ -12,7 +12,7 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 
 function Movies({ favorites, addToFavorites, removeFromFavorites }) {
   const [search, setSearch] = useLocalStorage("movies_search", ""); //
-  const [shortMovies, setShortMovies] = useLocalStorage("movies_toggle" ,false); //возможно стоит признак сохранять в локал сторадж
+  const [shortMovies, setShortMovies] = useLocalStorage("movies_toggle", false); //возможно стоит признак сохранять в локал сторадж
   const [data, setData] = useState([]);
   const [dataShow, setDataShow] = useState([]);
 
@@ -23,40 +23,34 @@ function Movies({ favorites, addToFavorites, removeFromFavorites }) {
   const [page, setPage] = useState(1);
   const [dataRender, setDataRender] = useState([]);
 
-  useEffect(()=>{
-
+  useEffect(() => {
     const setPaginationParamsByWindowSize = () => {
-
       const width = window.innerWidth;
 
       if (width >= 1280) {
         setInitialCount(12);
         setLoadCount(3);
-        
-      }
-      else if (width >= 768 && width < 1280) {
+      } else if (width >= 768 && width < 1280) {
         setInitialCount(8);
         setLoadCount(2);
-      }
-      else {
+      } else {
         setInitialCount(5);
-        setLoadCount(2)
+        setLoadCount(2);
       }
-    }
+    };
 
     const onResizeHandler = () => {
-      setTimeout(setPaginationParamsByWindowSize, 200)
-    }
+      setTimeout(setPaginationParamsByWindowSize, 200);
+    };
 
     setPaginationParamsByWindowSize();
 
-    window.addEventListener('resize', onResizeHandler);
+    window.addEventListener("resize", onResizeHandler);
 
-    return ()=>{
-      window.removeEventListener('resize', onResizeHandler);
-    }
-
-  },[]);
+    return () => {
+      window.removeEventListener("resize", onResizeHandler);
+    };
+  }, []);
 
   useEffect(() => {
     setIsLoading(true);
@@ -68,7 +62,7 @@ function Movies({ favorites, addToFavorites, removeFromFavorites }) {
       .catch((err) => {
         console.log(err);
       })
-      .finally(()=>setIsLoading(false));
+      .finally(() => setIsLoading(false));
   }, []);
 
   useEffect(() => {
@@ -87,13 +81,16 @@ function Movies({ favorites, addToFavorites, removeFromFavorites }) {
     setPage(1); //сброс пагинации
   }, [search, shortMovies, data]);
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(`Перерендер при смене страницы Тек страница: ${page} `);
 
     if (page === 1) {
       setDataRender(dataShow.slice(0, initialCount));
     } else {
-      const endIndex = Math.min(initialCount + ((page-1) * loadCount), dataShow.length);
+      const endIndex = Math.min(
+        initialCount + (page - 1) * loadCount,
+        dataShow.length
+      );
       setDataRender(dataShow.slice(0, endIndex));
     }
   }, [page, dataShow, loadCount]);
@@ -114,44 +111,52 @@ function Movies({ favorites, addToFavorites, removeFromFavorites }) {
     isLiked ? removeFromFavorites(movie) : addToFavorites(movie);
   };
 
-  const loadMoreHandler = e => {
+  const loadMoreHandler = (e) => {
     e.stopPropagation();
     e.preventDefault();
     const nextPage = page + 1;
     setPage(nextPage);
-  }
+  };
 
   return (
     <section className="movies">
-      <SearchForm searchValue={search} handleSearch={handleSearch} onClear={searchOnClear} />
+      <SearchForm
+        searchValue={search}
+        handleSearch={handleSearch}
+        onClear={searchOnClear}
+      />
       <FilterCheckbox
         value={shortMovies}
         onChangeHandler={filterOnChange}
         title="Короткометражки"
       />
-       {isLoading ? (
+      {isLoading ? (
         <Preloader />
-       ) : 
-      (<MoviesCardList>
-        {dataRender.map((movie) => (
-          <MoviesCard
-            key={movie.id}
-            movie={movie}
-            onToggleState={onToggleCardState}
-            isLiked= { favorites.findIndex(item=>item.id === movie.id) !== -1}
-          />
-        ))}
-      </MoviesCardList>)}
-      { dataShow.length > dataRender.length &&
-      
+      ) : (
+        <MoviesCardList>
+          {dataRender.map((movie) => (
+            <MoviesCard
+              key={movie.id}
+              movie={movie}
+              onToggleState={onToggleCardState}
+              isLiked={
+                favorites.findIndex((item) => item.id === movie.id) !== -1
+              }
+            />
+          ))}
+        </MoviesCardList>
+      )}
+      {dataRender.length === 0 && (
+        <span className="movies__error-message">Ничего не найдено</span>
+      )}
+      {dataShow.length > dataRender.length && (
         <button
-        className="movies-card-list__more-button"
-        onClick={loadMoreHandler}
+          className="movies-card-list__more-button"
+          onClick={loadMoreHandler}
         >
           Ещё
         </button>
-      }
-      
+      )}
     </section>
   );
 }
