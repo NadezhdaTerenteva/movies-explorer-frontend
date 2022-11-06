@@ -45,7 +45,7 @@ function SavedMovies({ favorites, removeFromFavorites }) {
 
   return (
     <section className="movies">
-      <SearchForm handleSearch={handleSearch} onClear={searchOnClear} />
+      <SearchForm searchValue={search} handleSearch={handleSearch} onClear={searchOnClear} />
       <FilterCheckbox
         value={shortMovies}
         onChangeHandler={filterOnChange}
@@ -61,6 +61,9 @@ function SavedMovies({ favorites, removeFromFavorites }) {
           />
         ))}
       </MoviesCardList>
+      {dataShow.length === 0 && (
+        <span className="saved-movies__error-message">Ничего не найдено</span>
+      )}
     </section>
   );
 }

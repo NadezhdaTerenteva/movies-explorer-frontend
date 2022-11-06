@@ -3,12 +3,20 @@ import { useState, useEffect } from "react";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 import { Link } from "react-router-dom";
+import useFormWithValidation from "../../hooks/useFormWithValidation";
+
 import Header from '../Header/Header';
 
 
 import "./Profile.css";
 
 function Profile({ isLoggedIn, onLogout, onUpdateUser }) {
+
+  const { formInputs, handleChange, errors, isValid, resetForm } =
+    useFormWithValidation({
+      name: "",
+      email: "",
+    });
 
   const [name, setName] = useState("");
 
@@ -54,21 +62,25 @@ function Profile({ isLoggedIn, onLogout, onUpdateUser }) {
               Имя
             </label>
             <input
-              value={name || ""}
+              value={name || formInputs.name}
               onChange={handleNameChange}
               className="profile__input"
               type="text"
               id="name"
               name="name"
+              pattern="[A-Za-zА-Яа-яЁё\s-]+"
+              maxLength="30"
+              minlenght="2"
               required
             ></input>
+            <span className="profile__error-message">{errors.name}</span>
           </div>
           <div className="profile__input-field">
             <label className="profile__form-label">
               E-mail
             </label>
             <input
-              value={email || ""}
+              value={email || formInputs.email}
               onChange={handleEmailChange}
               className="profile__input"
               type="email"
@@ -76,10 +88,12 @@ function Profile({ isLoggedIn, onLogout, onUpdateUser }) {
               name="email"
               required
             ></input>
+            <span className="profile__error-message">{errors.email}</span>
           </div>
           <button 
           className="profile__submit-button" 
-          type="button">
+          type="button"
+          disabled={!isValid}>
             Редактировать
           </button>
         </form>

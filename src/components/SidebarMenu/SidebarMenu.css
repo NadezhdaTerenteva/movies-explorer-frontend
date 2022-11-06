@@ -58,6 +58,7 @@
 
 .sidebar-menu__link:hover {
   text-decoration: underline;
+  opacity: 0.7;
 }
 
 .sidebar__link-account {
