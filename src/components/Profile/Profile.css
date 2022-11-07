@@ -54,6 +54,13 @@
   outline: none;
   border: none;
   box-sizing: border-box;
+  color: #000000;
+}
+
+.profile__input:disabled {
+  background-color: #ffffff;
+  color: #8b8b8b;
+  cursor: not-allowed;
 }
 
 .profile__error-message {

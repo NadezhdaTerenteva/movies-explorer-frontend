@@ -109,9 +109,12 @@ function App() {
       .updateUser(userData)
       .then((res) => {
         setCurrentUser(res);
+        setInfotooltipOpen(true);
+        setTooltipMessage("Ваши данные обновлены!");
       })
       .catch((err) => {
-        console.log(err);
+        setInfotooltipOpen(true);
+        setTooltipMessage("Что-то пошло не так! Попробуйте ещё раз.");
       });
   }
 
@@ -130,7 +133,7 @@ function App() {
       .authorize(email, password)
       .then((user) => {
         setIsLoggedIn(true);
-        //setCurrentUser(user);
+        setCurrentUser(user);
         history.push('/movies');
       })
       .catch((err) => {
@@ -145,14 +148,13 @@ function App() {
       })
   }
 
-
   function onRegister(data) {
     return auth
       .register(data)
       .then((user) => {
         setStatusMessage(true);
         setTooltipMessage("Вы успешно зарегистрировались!");
-        history.push("/signin");
+        history.push("/movies");
       })
       .catch((err) => {
         if (err.code === 409) {
@@ -200,6 +202,8 @@ function App() {
                 favorites={favoriteMovies}
                 addToFavorites={handleAddMovie}
                 removeFromFavorites={handleDeleteMovie}
+                setStatusMessage={setStatusMessage}
+                setTooltipMessage={setTooltipMessage}
               />
               <Footer />
               </>
@@ -212,7 +216,9 @@ function App() {
             isLoggedIn={isLoggedIn}
             component={
               <>
-                <Header isLoggedIn={isLoggedIn} />
+                <Header 
+                  isLoggedIn={isLoggedIn} 
+                  toggleSideBar={toggleSideBar}/>
                 <SavedMovies
                   favorites={favoriteMovies}
                   removeFromFavorites={handleDeleteMovie}
@@ -224,14 +230,21 @@ function App() {
           <ProtectedRoute
             path="/profile" 
             isLoggedIn={isLoggedIn}
-            component ={<Profile 
+            component={
+              <>
+              <Header 
               isLoggedIn={isLoggedIn}
+              toggleSideBar={toggleSideBar}/>
+            <Profile 
+              // isLoggedIn={isLoggedIn}
               onLogout={onLogout}
-              handleUpdateUser={handleUpdateUser}
-              />}
+              onUpdateUser={handleUpdateUser}
+              />
+              </>
+              }
           >
             
-            <Header isLoggedIn={isLoggedIn}/>
+           
             
           
           </ProtectedRoute>

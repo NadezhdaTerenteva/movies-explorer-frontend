@@ -5,26 +5,13 @@ import useFormWithValidation from "../../hooks/useFormWithValidation";
 import Logo from "../../images/Logo-min.svg";
 
 function Login({ onLogin }) {
-  const { formInputs, handleChange, errors, isValid, resetForm } =
+  const { formInputs, handleChange, errors, isValid } =
     useFormWithValidation({
       email: "",
       password: "",
     });
 
-  // const [loginData, setLoginData] = useState({
-  //   email: "",
-  //   password: "",
-  // });
-
   const [message, setMessage] = useState("");
-
-  // const handleChange = (evt) => {
-  //   const { name, value } = evt.target;
-  //   setLoginData({
-  //     ...loginData,
-  //     [name]: value,
-  //   });
-  // };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();

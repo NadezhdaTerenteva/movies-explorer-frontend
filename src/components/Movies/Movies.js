@@ -10,7 +10,7 @@ import "./Movies.css";
 import { moviesApi } from "../../utils/MoviesApi";
 import useLocalStorage from "../../hooks/useLocalStorage";
 
-function Movies({ favorites, addToFavorites, removeFromFavorites }) {
+function Movies({ favorites, addToFavorites, removeFromFavorites, setStatusMessage, setTooltipMessage }) {
   const [search, setSearch] = useLocalStorage("movies_search", ""); //
   const [shortMovies, setShortMovies] = useLocalStorage("movies_toggle", false); //возможно стоит признак сохранять в локал сторадж
   const [data, setData] = useState([]);
@@ -60,6 +60,8 @@ function Movies({ favorites, addToFavorites, removeFromFavorites }) {
         setData(dataApi);
       })
       .catch((err) => {
+        setStatusMessage(false);
+        setTooltipMessage("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз")
         console.log(err);
       })
       .finally(() => setIsLoading(false));
@@ -69,7 +71,7 @@ function Movies({ favorites, addToFavorites, removeFromFavorites }) {
     let moviesForShow = [...data];
     if (search !== "") {
       moviesForShow = moviesForShow.filter(
-        (item) => item.nameRU.indexOf(search) !== -1
+        (item) => item.nameRU.toLowerCase().indexOf(search.toLowerCase()) !== -1
       );
     }
 

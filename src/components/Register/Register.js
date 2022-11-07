@@ -5,29 +5,14 @@ import useFormWithValidation from "../../hooks/useFormWithValidation";
 import Logo from "../../images/Logo-min.svg";
 
 function Register({ onRegister }) {
-  const { formInputs, handleChange, errors, isValid, resetForm } =
+  const { formInputs, handleChange, errors, isValid } =
     useFormWithValidation({
       name: "",
       email: "",
       password: "",
     });
 
-    // const [registerData, setRegisterData] = useState({
-    //   password: "",
-    //   email: "",
-    // });
-  
     const [message, setMessage] = useState("");
-  
-    // const handleChange = (evt) => {
-    //   setMessage("");
-    //   const { name, value } = evt.target;
-    //   setRegisterData({
-    //     ...registerData,
-    //     [name]: value,
-    //   });
-    // };
-  
 
     const onSubmit = (evt) => {
       evt.preventDefault();

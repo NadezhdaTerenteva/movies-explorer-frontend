@@ -5,51 +5,38 @@ import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { Link } from "react-router-dom";
 import useFormWithValidation from "../../hooks/useFormWithValidation";
 
-import Header from '../Header/Header';
-
-
 import "./Profile.css";
 
 function Profile({ isLoggedIn, onLogout, onUpdateUser }) {
 
-  const { formInputs, handleChange, errors, isValid, resetForm } =
+  const currentUser = React.useContext(CurrentUserContext);
+  const [viewOnly, setViewOnly] = useState(true);
+
+  const { formInputs, handleChange, errors, isValid, resetForm} =
     useFormWithValidation({
-      name: "",
-      email: "",
+      name: currentUser.name || "",
+      email: currentUser.email || ""
     });
-
-  const [name, setName] = useState("");
-
-  const [email, setEmail] = useState("");
-
-  function handleNameChange(e) {
-    setName(e.target.value);
-  }
-
-  function handleEmailChange(e) {
-    setEmail(e.target.value);
-  }
 
   function handleSubmit(e) {
     e.preventDefault();
     // Передаём значения управляемых компонентов во внешний обработчик
-    onUpdateUser({
-      name,
-      email,
-    });
+    console.log(formInputs);
+    onUpdateUser(formInputs);
   }
 
-  const currentUser = React.useContext(CurrentUserContext);
-
   useEffect(() => {
-    setName(currentUser.name);
-    setEmail(currentUser.email);
-  }, [currentUser]);
+    if (currentUser) {
+      resetForm(currentUser, {}, true);
+    }
+  }, [currentUser, resetForm]);
 
- 
+  const onEditClickHandler = (e) => {
+    e.preventDefault();
+    setViewOnly(false);
+  }
+
   return (
-    <>
-    <Header isLoggedIn={isLoggedIn}/>
     <section className="profile">
       
       <div className="profile-content">
@@ -62,8 +49,8 @@ function Profile({ isLoggedIn, onLogout, onUpdateUser }) {
               Имя
             </label>
             <input
-              value={name || formInputs.name}
-              onChange={handleNameChange}
+              value={formInputs.name || ''}
+              onChange={handleChange}
               className="profile__input"
               type="text"
               id="name"
@@ -72,6 +59,7 @@ function Profile({ isLoggedIn, onLogout, onUpdateUser }) {
               maxLength="30"
               minlenght="2"
               required
+              disabled={viewOnly}
             ></input>
             <span className="profile__error-message">{errors.name}</span>
           </div>
@@ -80,22 +68,37 @@ function Profile({ isLoggedIn, onLogout, onUpdateUser }) {
               E-mail
             </label>
             <input
-              value={email || formInputs.email}
-              onChange={handleEmailChange}
+              value={formInputs.email || ''}
+              onChange={handleChange}
               className="profile__input"
               type="email"
               id="email"
               name="email"
               required
+              disabled={viewOnly}
             ></input>
             <span className="profile__error-message">{errors.email}</span>
           </div>
-          <button 
-          className="profile__submit-button" 
-          type="button"
-          disabled={!isValid}>
-            Редактировать
-          </button>
+          {
+            viewOnly
+            ? <button 
+                className="profile__submit-button" 
+                type="button"
+                onClick={onEditClickHandler}
+              >
+                Редактировать
+            </button>
+            :
+            <button 
+              className="profile__submit-button" 
+              type="submit"
+              disabled={!isValid}
+            >
+              Сохранить
+            </button>
+
+          }
+          
         </form>
         <h4 className="profile__caption">
           <Link to="/" 
@@ -106,7 +109,6 @@ function Profile({ isLoggedIn, onLogout, onUpdateUser }) {
         </h4>
       </div>
     </section>
-    </>
   );
 }
 

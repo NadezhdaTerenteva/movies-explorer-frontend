@@ -16,7 +16,7 @@ function SavedMovies({ favorites, removeFromFavorites }) {
     let moviesForShow = [...favorites];
     if (search !== "") {
       moviesForShow = moviesForShow.filter(
-        (item) => item.nameRU.indexOf(search) !== -1
+        (item) => item.nameRU.toLowerCase().indexOf(search.toLowerCase()) !== -1
       );
     }
 

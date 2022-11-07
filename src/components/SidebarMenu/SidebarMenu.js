@@ -11,7 +11,9 @@ function SidebarMenu({ visible, toggleSideBar }) {
   }`;
 
   return (
-    <section className={sidebarMenuClassName}>
+    <section 
+      className={sidebarMenuClassName}
+      onClick={toggleSideBar}>
       <div className={`sidebar-menu__content ${visible && "sidebar-menu__content_animated"}`}>
         <button
           className="sidebar-menu__close-button"
@@ -19,24 +21,30 @@ function SidebarMenu({ visible, toggleSideBar }) {
           onClick={toggleSideBar}
         />
         <div className="sidebar-menu__links">
-          <Link to="/" className="sidebar-menu__link sidebar-menu__link-main">
+          <Link 
+            to="/" 
+            className="sidebar-menu__link sidebar-menu__link-main"
+            onClick={toggleSideBar}>
             Главная
           </Link>
           <Link
             to="/movies"
             className="sidebar-menu__link sidebar-menu__link-films"
+            onClick={toggleSideBar}
           >
             Фильмы
           </Link>
           <Link
             to="/saved-movies"
             className="sidebar-menu__link sidebar-menu__link-saved-films"
+            onClick={toggleSideBar}
           >
             Сохранённые фильмы
           </Link>
           <Link
             to="/profile"
             className="sidebar-menu__link sidebar__link-account"
+            onClick={toggleSideBar}
           >
             <p className="sidebar__link-account-text">Аккаунт</p>
             <img
