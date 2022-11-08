@@ -11,8 +11,9 @@ function Profile({ isLoggedIn, onLogout, onUpdateUser }) {
 
   const currentUser = React.useContext(CurrentUserContext);
   const [viewOnly, setViewOnly] = useState(true);
+  const [dataIsModified, setDataIsModified] = useState(false);
 
-  const { formInputs, handleChange, errors, isValid, resetForm} =
+  const { formInputs, handleChange, errors, isValid, resetForm } =
     useFormWithValidation({
       name: currentUser.name || "",
       email: currentUser.email || ""
@@ -36,6 +37,10 @@ function Profile({ isLoggedIn, onLogout, onUpdateUser }) {
     setViewOnly(false);
   }
 
+  const inputOnChangeHandler = (e) => {
+    setDataIsModified(true);
+    handleChange(e);
+  }
   return (
     <section className="profile">
       
@@ -50,7 +55,7 @@ function Profile({ isLoggedIn, onLogout, onUpdateUser }) {
             </label>
             <input
               value={formInputs.name || ''}
-              onChange={handleChange}
+              onChange={inputOnChangeHandler}
               className="profile__input"
               type="text"
               id="name"
@@ -69,7 +74,7 @@ function Profile({ isLoggedIn, onLogout, onUpdateUser }) {
             </label>
             <input
               value={formInputs.email || ''}
-              onChange={handleChange}
+              onChange={inputOnChangeHandler}
               className="profile__input"
               type="email"
               id="email"
@@ -92,7 +97,7 @@ function Profile({ isLoggedIn, onLogout, onUpdateUser }) {
             <button 
               className="profile__submit-button" 
               type="submit"
-              disabled={!isValid}
+              disabled={!isValid || !dataIsModified}
             >
               Сохранить
             </button>

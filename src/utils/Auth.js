@@ -40,16 +40,11 @@ export const logout = () => {
     method: "POST",
     headers: { "Content-type": "application/json" },
     credentials: 'include',
-  }).then((res) => checkResponse(res));
-}
-
-export const getContent = () => {
-  return fetch(`${BASE_URL}/users/me`, {
-    method: "GET",
-    headers: {
-      "Content-type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-    },
-    credentials: 'include',
-  }).then((res) => checkResponse(res));
+  }).then((res) => {
+      if (res.ok && res.status === 200) {
+        return true;
+      }  else {
+        throw new Error("Произошла какая-то ошибка");
+      }
+  })
 };

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 
 import * as auth from "../../utils/Auth";
-import {mainApi} from "../../utils/MainApi";
+import { mainApi } from "../../utils/MainApi";
 
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
@@ -23,7 +23,6 @@ import "./App.css";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 function App() {
-
   const [currentUser, setCurrentUser] = useState({});
 
   const [favoriteMovies, setFavoriteMovies] = useState([]);
@@ -34,53 +33,55 @@ function App() {
 
   const [tooltipMessage, setTooltipMessage] = useState("");
 
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const history = useHistory();
 
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
 
   const toggleSideBar = () => {
-    setIsSideBarOpen(!isSideBarOpen)
-  }
+    setIsSideBarOpen(!isSideBarOpen);
+  };
 
   //  // Получаем данные пользователя
-   useEffect(() => {
-    if (isLoggedIn)
+  useEffect(() => {
+    if (isLoggedIn === true) {
       mainApi
         .getUserInfo()
         .then((res) => {
-          setCurrentUser(res)
+          setCurrentUser(res);
           setIsLoggedIn(true);
         })
         .catch((err) => {
-          console.log('we are here');
+          console.log("we are here");
           setIsLoggedIn(false);
           console.log(err);
         });
+    }
   }, [isLoggedIn]);
-
 
   //Получаем сохраненные фильмы
   useEffect(() => {
-    if (isLoggedIn)
+    if (isLoggedIn === true) {
+      console.log("sdssdsd");
       mainApi
         .getFavoriteMovies()
         .then((moviesList) => {
           if (moviesList) {
-            setFavoriteMovies(moviesList)
+            setFavoriteMovies(moviesList);
           }
         })
         .catch((err) => {
           console.log(err);
         });
+    }
   }, [isLoggedIn]);
 
   // добавление фильма в сохраненные
   function handleAddMovie(movie) {
     mainApi
       .addMovie(movie)
-      .then(newMovie => setFavoriteMovies([newMovie, ...favoriteMovies]))
+      .then((newMovie) => setFavoriteMovies([newMovie, ...favoriteMovies]))
       .catch((err) => {
         console.log(err);
       });
@@ -88,21 +89,21 @@ function App() {
 
   //удаление фильма из сохраненных
   function handleDeleteMovie(movie) {
-    
-    const savedMovie = favoriteMovies.find(item=>item.id === movie.id);
-    
+    const savedMovie = favoriteMovies.find((item) => item.id === movie.id);
+
     if (!savedMovie) return;
 
     mainApi
       .deleteMovie(savedMovie._id)
       .then(() => {
-        setFavoriteMovies((prevState) => prevState.filter((item) => savedMovie._id !== item._id));
+        setFavoriteMovies((prevState) =>
+          prevState.filter((item) => savedMovie._id !== item._id)
+        );
       })
       .catch((err) => {
         console.log(err);
       });
   }
-
 
   function handleUpdateUser(userData) {
     mainApi
@@ -126,7 +127,6 @@ function App() {
     setInfotooltipOpen(false);
   }
 
-
   function onLogin(data) {
     const { email, password } = data;
     return auth
@@ -134,18 +134,18 @@ function App() {
       .then((user) => {
         setIsLoggedIn(true);
         setCurrentUser(user);
-        history.push('/movies');
+        history.push("/movies");
       })
       .catch((err) => {
         if (err.code === 401) {
           setTooltipMessage("Неверный логин или пароль");
-          history.push('/signin');
+          history.push("/signin");
         } else {
           setStatusMessage(false);
           setTooltipMessage("Что-то пошло не так! Попробуйте ещё раз.");
-          history.push('/signin');
+          history.push("/signin");
         }
-      })
+      });
   }
 
   function onRegister(data) {
@@ -160,8 +160,7 @@ function App() {
         if (err.code === 409) {
           setStatusMessage(false);
           setTooltipMessage("Пользователь с таким email уже зарегистрирован");
-        } 
-        else {
+        } else {
           setStatusMessage(false);
           setTooltipMessage("Что-то пошло не так! Попробуйте ещё раз.");
         }
@@ -172,9 +171,7 @@ function App() {
   }
 
   function onLogout() {
-     auth
-    .logout()
-    .then(()=> {
+    auth.logout().then(() => {
       setIsLoggedIn(false);
       history.push("/signin");
     });
@@ -185,7 +182,7 @@ function App() {
       <section className="app">
         <Switch>
           <Route exact path="/">
-            <Header />
+            <Header isLoggedIn={isLoggedIn} toggleSideBar={toggleSideBar} />
             <Main />
             <Footer />
           </Route>
@@ -194,31 +191,24 @@ function App() {
             isLoggedIn={isLoggedIn}
             component={
               <>
-              <Header
-                isLoggedIn={isLoggedIn}
-                toggleSideBar={toggleSideBar}
-              />
-              <Movies
-                favorites={favoriteMovies}
-                addToFavorites={handleAddMovie}
-                removeFromFavorites={handleDeleteMovie}
-                setStatusMessage={setStatusMessage}
-                setTooltipMessage={setTooltipMessage}
-              />
-              <Footer />
+                <Header isLoggedIn={isLoggedIn} toggleSideBar={toggleSideBar} />
+                <Movies
+                  favorites={favoriteMovies}
+                  addToFavorites={handleAddMovie}
+                  removeFromFavorites={handleDeleteMovie}
+                  setStatusMessage={setStatusMessage}
+                  setTooltipMessage={setTooltipMessage}
+                />
+                <Footer />
               </>
             }
-          >
-            
-          </ProtectedRoute>
+          ></ProtectedRoute>
           <ProtectedRoute
             path="/saved-movies"
             isLoggedIn={isLoggedIn}
             component={
               <>
-                <Header 
-                  isLoggedIn={isLoggedIn} 
-                  toggleSideBar={toggleSideBar}/>
+                <Header isLoggedIn={isLoggedIn} toggleSideBar={toggleSideBar} />
                 <SavedMovies
                   favorites={favoriteMovies}
                   removeFromFavorites={handleDeleteMovie}
@@ -228,35 +218,39 @@ function App() {
             }
           />
           <ProtectedRoute
-            path="/profile" 
+            path="/profile"
             isLoggedIn={isLoggedIn}
             component={
               <>
-              <Header 
-              isLoggedIn={isLoggedIn}
-              toggleSideBar={toggleSideBar}/>
-            <Profile 
-              // isLoggedIn={isLoggedIn}
-              onLogout={onLogout}
-              onUpdateUser={handleUpdateUser}
-              />
+                <Header isLoggedIn={isLoggedIn} toggleSideBar={toggleSideBar} />
+                <Profile
+                  isLoggedIn={isLoggedIn}
+                  onLogout={onLogout}
+                  onUpdateUser={handleUpdateUser}
+                />
               </>
-              }
-          >
-            
-           
-            
-          
-          </ProtectedRoute>
-          <Route path="/signup">
+            }
+          ></ProtectedRoute>
+          <Route exact path="/signup">
+           { isLoggedIn ?
+            <Redirect to="/" />
+            :
             <Register onRegister={onRegister} />
+           }
           </Route>
-          <Route path="/signin">
-            <Login onLogin={onLogin}/>
+          <Route exact path="/signin">
+            { isLoggedIn ?
+            <Redirect to="/" />
+            : 
+            <Login onLogin={onLogin} />
+            }
           </Route>
           <Route path="*">
-          {isLoggedIn ? <Redirect to="/profile" /> : <Redirect to="/signin" />}
+            { isLoggedIn ?
+            <Redirect to="/profile" />
+            :
             <NotFound />
+            }
           </Route>
         </Switch>
 

@@ -8,9 +8,8 @@ function Header({ isLoggedIn, toggleSideBar }) {
   const location = useLocation();
 
   return (
-    <Switch>
-      {
-      isLoggedIn === false
+    <Switch> 
+      { !isLoggedIn
       ? <header className={`header ${
         location.pathname === '/' ? "header_theme_dark" : ""}`}>
           <Link to="/">
