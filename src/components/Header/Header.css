@@ -115,6 +115,10 @@
   outline: none;
 }
 
+.header__burger-menu_theme_dark {
+  background-image: url(../../images/burger-menu-icon_theme_dark-min.svg);
+}
+
 .header__burger-menu:hover {
   opacity: 0.7;
   cursor: pointer;

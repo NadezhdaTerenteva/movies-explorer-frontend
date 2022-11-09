@@ -49,12 +49,13 @@ function Header({ isLoggedIn, toggleSideBar }) {
               <img
                 src={AccountIcon}
                 alt="Иконка"
-                className="header__link-account-icon"
-              ></img>
+                className="header__link-account-icon">
+                  </img>
             </Link>
             <button 
               type="button"
-              className="header__burger-menu"
+              className={`header__burger-menu ${
+              location.pathname === '/' ? "header__burger-menu_theme_dark" : ""} `}
               onClick={toggleSideBar}
             >
             </button>
