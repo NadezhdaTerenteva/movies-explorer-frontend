@@ -75,4 +75,7 @@ class MainApi {
   }
 }
 
-export const mainApi = new MainApi("http://localhost:4000");
+export const mainApi = new MainApi("https://back.movie-explorer.nomoredomains.icu");
+
+//export const mainApi = new MainApi("http://localhost:4000");
+

@@ -1,15 +1,27 @@
-import { Redirect, Route } from "react-router-dom"; 
+import { useLocation, NavLink} from "react-router-dom"; 
 
 const ProtectedRoute = ({ component: Component, ...props }) => {
-    return (
-      // props.isLoggedIn ? Component : <Redirect to="/signin"/>
-      <Route>
-        {
-          () => props.isLoggedIn ? Component : <Redirect to="/signin"/>
+  const location = useLocation();
+
+  if (props.isLoggedIn === undefined) return "... LOADING ...";
+
+  return props.isLoggedIn ? (
+    Component
+  ) : (
+    <NavLink to="/" replace state={{ from: location }} />
+  );
+};
+
+// Предыдущий вариант 
+
+    // return (
+    //   <Route>
+    //     {
+    //       () => props.isLoggedIn ? Component : <Redirect to="/signin"/>
           
-        }
-      </Route>
-    );
-  };
-  
+    //     }
+    //   </Route>
+    // );
+  // };
+
   export default ProtectedRoute;

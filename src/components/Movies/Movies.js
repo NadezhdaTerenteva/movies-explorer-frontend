@@ -148,7 +148,7 @@ function Movies({ favorites, addToFavorites, removeFromFavorites, setStatusMessa
           ))}
         </MoviesCardList>
       )}
-      {dataRender.length === 0 && (
+      {(dataRender.length === 0) && (!isLoading) && (
         <span className="movies__error-message">Ничего не найдено</span>
       )}
       {dataShow.length > dataRender.length && (

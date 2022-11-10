@@ -45,7 +45,7 @@ function App() {
 
   //  // Получаем данные пользователя
   useEffect(() => {
-    if (isLoggedIn === true) {
+    //if (isLoggedIn === true) {
       mainApi
         .getUserInfo()
         .then((res) => {
@@ -53,17 +53,15 @@ function App() {
           setIsLoggedIn(true);
         })
         .catch((err) => {
-          console.log("we are here");
           setIsLoggedIn(false);
           console.log(err);
         });
-    }
+      //}
   }, [isLoggedIn]);
 
   //Получаем сохраненные фильмы
   useEffect(() => {
     if (isLoggedIn === true) {
-      console.log("sdssdsd");
       mainApi
         .getFavoriteMovies()
         .then((moviesList) => {

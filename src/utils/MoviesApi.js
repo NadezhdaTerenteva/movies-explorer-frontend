@@ -1,5 +1,5 @@
 const API_ROOT = "https://api.nomoreparties.co/beatfilm-movies";
-const FILE_ROOT = 'https://api.nomoreparties.co';
+const FILE_ROOT = "https://api.nomoreparties.co";
 
 class MoviesApi {
     constructor(url) {
