@@ -16,3 +16,5 @@ Frontend https://movie-explorer.nomoredomains.icu
 Backend https://back.movie-explorer.nomoredomains.icu
 
 Макет: https://disk.yandex.ru/d/DNF2K1irJV6zVw
+
+Ссылка на pull-request: https://github.com/NadezhdaTerenteva/movies-explorer-frontend/pull/4 
