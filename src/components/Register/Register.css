@@ -133,7 +133,10 @@
   .register__header {
     text-align: center;
   }
-  .register__input:last-of-type {
+  .register__input-field {
+    max-width: 386px;
+  }
+  .register__input-field:last-of-type {
     margin-bottom: 140px;
   }
   .register__caption {
@@ -148,6 +151,9 @@
 
 @media screen and (max-width: 390px) {
   .register-content {
+    max-width: 260px;
+  }
+  .register__input-field {
     max-width: 260px;
   }
 }

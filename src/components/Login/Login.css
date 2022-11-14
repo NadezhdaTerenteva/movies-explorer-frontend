@@ -117,10 +117,13 @@
   .login-content {
     max-width: 386px;
   }
+  .login__input-field {
+    max-width: 386px;
+  }
   .login__header {
     text-align: center;
   }
-  .login__input:last-of-type {
+  .login__input-field:last-of-type {
     margin-bottom: 220px;
   }
   .login__submit-button {
@@ -135,6 +138,9 @@
 
 @media screen and (max-width: 400px) {
   .login-content {
+    max-width: 260px;
+  }
+  .login__input-field {
     max-width: 260px;
   }
 }

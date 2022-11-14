@@ -76,7 +76,7 @@ function Login({ onLogin }) {
           <button
             className="login__submit-button"
             type="submit"
-            disabled={!isValid || reqIsProcessing}
+            disabled={!isValid }
           >
             Войти
           </button>

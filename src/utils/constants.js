@@ -15,4 +15,4 @@ export const COUNT_LOAD_CARDS_SMALL_SCREEN = 2;
 export const WIDE_SCREEN_BP = 1280;
 export const MEDIUM_SCREEN_BP = 768;
 
-export const EMAIL_PATTERN = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
+export const EMAIL_PATTERN ="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})";
