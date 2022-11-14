@@ -11,7 +11,9 @@ const checkResponse = (res) => {
 export const register = ({ name, email, password }) => {
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
-    headers: { "Content-type": "application/json" },
+    headers: { "Content-type": "application/json",
+    "Access-Control-Allow-Origin": "https://movie-explorer.nomoredomains.icu",
+   },
     credentials: 'include',
     body: JSON.stringify({
       name: name,
@@ -25,7 +27,7 @@ export const authorize = (email, password) => {
   return fetch(`${BASE_URL}/signin`, {
     method: "POST",
     headers: { "Content-type": "application/json",
-    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Origin": "https://movie-explorer.nomoredomains.icu",
   },
     credentials: 'include',
     body: JSON.stringify({
