@@ -145,4 +145,12 @@
     font-size: 12px;
     line-height: 15px;
   }
+
+  .movies-card__save-button_active {
+    visibility: visible;
+  }
+
+  .movies-card__delete-icon_active {
+    visibility: visible;
+  }
 }

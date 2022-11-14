@@ -1,5 +1,4 @@
-const API_ROOT = "https://api.nomoreparties.co/beatfilm-movies";
-const FILE_ROOT = "https://api.nomoreparties.co";
+import { MOVIE_API, FILE_ROOT} from '../utils/constants';
 
 class MoviesApi {
     constructor(url) {
@@ -28,5 +27,5 @@ class MoviesApi {
       }
     }
 
-const moviesApi = new MoviesApi(API_ROOT);
-export {API_ROOT, FILE_ROOT,  moviesApi};
+const moviesApi = new MoviesApi(MOVIE_API);
+export { moviesApi };

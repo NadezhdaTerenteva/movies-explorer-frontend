@@ -1,3 +1,6 @@
+import { BACKEND_API_ROOT } from '../utils/constants';
+import AuthError from './errors/AuthError';
+
 class MainApi {
   constructor(url, token) {
     this._url = url;
@@ -12,6 +15,10 @@ class MainApi {
       const resData = await response.json();
       return resData.data;
     }
+    if (response.status === 401) {
+      return Promise.reject(new AuthError('Ошибка авторизации'))
+    }
+
     return Promise.reject(new Error(`Ошибка ${response.status}: ${response.statusText}`)
     );
   }
@@ -75,7 +82,4 @@ class MainApi {
   }
 }
 
-export const mainApi = new MainApi("https://back.movie-explorer.nomoredomains.icu");
-
-//export const mainApi = new MainApi("http://localhost:4000");
-
+export const mainApi = new MainApi(BACKEND_API_ROOT);

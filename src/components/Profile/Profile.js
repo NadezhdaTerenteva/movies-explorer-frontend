@@ -1,15 +1,15 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 import { Link } from "react-router-dom";
 import useFormWithValidation from "../../hooks/useFormWithValidation";
-
+import { EMAIL_PATTERN } from "../../utils/constants";
 import "./Profile.css";
 
 function Profile({ isLoggedIn, onLogout, onUpdateUser }) {
 
-  const currentUser = React.useContext(CurrentUserContext);
+  const { currentUser, reqIsProcessing } = useContext(CurrentUserContext);
   const [viewOnly, setViewOnly] = useState(true);
   const [dataIsModified, setDataIsModified] = useState(false);
 
@@ -22,10 +22,10 @@ function Profile({ isLoggedIn, onLogout, onUpdateUser }) {
   function handleSubmit(e) {
     e.preventDefault();
     // Передаём значения управляемых компонентов во внешний обработчик
-    console.log(formInputs);
     onUpdateUser(formInputs);
   }
 
+  
   useEffect(() => {
     if (currentUser) {
       resetForm(currentUser, {}, true);
@@ -38,7 +38,10 @@ function Profile({ isLoggedIn, onLogout, onUpdateUser }) {
   }
 
   const inputOnChangeHandler = (e) => {
-    setDataIsModified(true);
+    
+    const storedValue = currentUser[e.target.name];
+    setDataIsModified(e.target.value !== storedValue);
+  
     handleChange(e);
   }
   return (
@@ -64,7 +67,7 @@ function Profile({ isLoggedIn, onLogout, onUpdateUser }) {
               maxLength="30"
               minlenght="2"
               required
-              disabled={viewOnly}
+              disabled={viewOnly || reqIsProcessing}
             ></input>
             <span className="profile__error-message">{errors.name}</span>
           </div>
@@ -79,8 +82,9 @@ function Profile({ isLoggedIn, onLogout, onUpdateUser }) {
               type="email"
               id="email"
               name="email"
+              pattern={EMAIL_PATTERN}
               required
-              disabled={viewOnly}
+              disabled={viewOnly || reqIsProcessing}
             ></input>
             <span className="profile__error-message">{errors.email}</span>
           </div>
@@ -97,7 +101,7 @@ function Profile({ isLoggedIn, onLogout, onUpdateUser }) {
             <button 
               className="profile__submit-button" 
               type="submit"
-              disabled={!isValid || !dataIsModified}
+              disabled={!isValid || !dataIsModified || reqIsProcessing}
             >
               Сохранить
             </button>

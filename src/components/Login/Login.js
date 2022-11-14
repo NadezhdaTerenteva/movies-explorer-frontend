@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import useFormWithValidation from "../../hooks/useFormWithValidation";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
+
 
 import Logo from "../../images/Logo-min.svg";
+import { EMAIL_PATTERN } from "../../utils/constants";
 
 function Login({ onLogin }) {
   const { formInputs, handleChange, errors, isValid } =
@@ -12,6 +15,8 @@ function Login({ onLogin }) {
     });
 
   const [message, setMessage] = useState("");
+
+  const { currentUser, reqIsProcessing } = useContext(CurrentUserContext);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -42,8 +47,10 @@ function Login({ onLogin }) {
               id="email"
               name="email"
               value={formInputs.email}
+              pattern={EMAIL_PATTERN}
               required
               onChange={handleChange}
+              disabled={reqIsProcessing}
             ></input>
             <span className="login__error-message">{errors.email}</span>
           </div>
@@ -62,13 +69,14 @@ function Login({ onLogin }) {
               maxLength="10"
               required
               onChange={handleChange}
+              disabled={reqIsProcessing}
             ></input>
             <span className="login__error-message">{errors.password}</span>
           </div>
           <button
             className="login__submit-button"
             type="submit"
-            disabled={!isValid}
+            disabled={!isValid || reqIsProcessing}
           >
             Войти
           </button>

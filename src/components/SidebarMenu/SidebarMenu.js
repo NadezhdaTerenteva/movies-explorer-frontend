@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import "./SidebarMenu.css";
 import AccountIcon from "../../images/account_icon-min.svg";
@@ -21,27 +21,27 @@ function SidebarMenu({ visible, toggleSideBar }) {
           onClick={toggleSideBar}
         />
         <div className="sidebar-menu__links">
-          <Link 
+          <NavLink 
             to="/" 
             className="sidebar-menu__link sidebar-menu__link-main"
             onClick={toggleSideBar}>
             Главная
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to="/movies"
             className="sidebar-menu__link sidebar-menu__link-films"
             onClick={toggleSideBar}
           >
             Фильмы
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to="/saved-movies"
             className="sidebar-menu__link sidebar-menu__link-saved-films"
             onClick={toggleSideBar}
           >
             Сохранённые фильмы
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to="/profile"
             className="sidebar-menu__link sidebar__link-account"
             onClick={toggleSideBar}
@@ -52,7 +52,7 @@ function SidebarMenu({ visible, toggleSideBar }) {
               alt="Иконка"
               className="sidebar__link-account-icon"
             ></img>
-          </Link>
+          </NavLink>
         </div>
       </div>
     </section>

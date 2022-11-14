@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 
 import "./MoviesCard.css";
-import { FILE_ROOT } from "../../utils/MoviesApi";
+import { FILE_ROOT } from "../../utils/constants";
 
 function MoviesCard({ movie, isLiked, onToggleState }) {
   

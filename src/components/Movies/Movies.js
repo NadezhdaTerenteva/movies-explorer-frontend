@@ -9,11 +9,23 @@ import "./Movies.css";
 
 import { moviesApi } from "../../utils/MoviesApi";
 import useLocalStorage from "../../hooks/useLocalStorage";
+import {
+  SHORT_MOVIE_DURATION,
+  COUNT_CARDS_WIDE_SCREEN,
+  COUNT_CARDS_MEDIUM_SCREEN,
+  COUNT_CARDS_SMALL_SCREEN,
+  COUNT_LOAD_CARDS_WIDE_SCREEN,
+  COUNT_LOAD_CARDS_MEDIUM_SCREEN,
+  COUNT_LOAD_CARDS_SMALL_SCREEN,
+  WIDE_SCREEN_BP,
+  MEDIUM_SCREEN_BP
+
+} from '../../utils/constants';
 
 function Movies({ favorites, addToFavorites, removeFromFavorites, setStatusMessage, setTooltipMessage }) {
   const [search, setSearch] = useLocalStorage("movies_search", ""); //
   const [shortMovies, setShortMovies] = useLocalStorage("movies_toggle", false); //возможно стоит признак сохранять в локал сторадж
-  const [data, setData] = useState([]);
+  const [data, setData] = useLocalStorage("moviest_api_list",[]);
   const [dataShow, setDataShow] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -27,15 +39,15 @@ function Movies({ favorites, addToFavorites, removeFromFavorites, setStatusMessa
     const setPaginationParamsByWindowSize = () => {
       const width = window.innerWidth;
 
-      if (width >= 1280) {
-        setInitialCount(12);
-        setLoadCount(3);
-      } else if (width >= 768 && width < 1280) {
-        setInitialCount(8);
-        setLoadCount(2);
+      if (width >= WIDE_SCREEN_BP) {
+        setInitialCount(COUNT_CARDS_WIDE_SCREEN);
+        setLoadCount(COUNT_LOAD_CARDS_WIDE_SCREEN);
+      } else if (width >= MEDIUM_SCREEN_BP && width < WIDE_SCREEN_BP) {
+        setInitialCount(COUNT_CARDS_MEDIUM_SCREEN);
+        setLoadCount(COUNT_LOAD_CARDS_MEDIUM_SCREEN);
       } else {
-        setInitialCount(5);
-        setLoadCount(2);
+        setInitialCount(COUNT_CARDS_SMALL_SCREEN);
+        setLoadCount(COUNT_LOAD_CARDS_SMALL_SCREEN);
       }
     };
 
@@ -53,18 +65,20 @@ function Movies({ favorites, addToFavorites, removeFromFavorites, setStatusMessa
   }, []);
 
   useEffect(() => {
-    setIsLoading(true);
-    moviesApi
-      .getMovies()
-      .then((dataApi) => {
-        setData(dataApi);
-      })
-      .catch((err) => {
-        setStatusMessage(false);
-        setTooltipMessage("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз")
-        console.log(err);
-      })
-      .finally(() => setIsLoading(false));
+    if( data.length === 0) {
+      setIsLoading(true);
+      moviesApi
+        .getMovies()
+        .then((dataApi) => {
+          setData(dataApi);
+        })
+        .catch((err) => {
+          setStatusMessage(false);
+          setTooltipMessage("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз")
+          console.log(err);
+        })
+        .finally(() => setIsLoading(false));
+    }
   }, []);
 
   useEffect(() => {
@@ -76,7 +90,7 @@ function Movies({ favorites, addToFavorites, removeFromFavorites, setStatusMessa
     }
 
     if (shortMovies) {
-      moviesForShow = moviesForShow.filter((item) => item.duration <= 40);
+      moviesForShow = moviesForShow.filter((item) => item.duration <= SHORT_MOVIE_DURATION);
     }
 
     setDataShow(moviesForShow);
@@ -84,7 +98,6 @@ function Movies({ favorites, addToFavorites, removeFromFavorites, setStatusMessa
   }, [search, shortMovies, data]);
 
   useEffect(() => {
-    console.log(`Перерендер при смене страницы Тек страница: ${page} `);
 
     if (page === 1) {
       setDataRender(dataShow.slice(0, initialCount));

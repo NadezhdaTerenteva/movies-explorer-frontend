@@ -1,5 +1,5 @@
-export const BASE_URL = "https://back.movie-explorer.nomoredomains.icu";
-//export const BASE_URL = "http://localhost:4000";
+//export const BASE_URL = "https://back.movie-explorer.nomoredomains.icu";
+export const BASE_URL = "http://localhost:4000";
 const checkResponse = (res) => {
   return res.ok
     ? res.json()

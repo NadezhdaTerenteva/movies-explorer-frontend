@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import useFormWithValidation from "../../hooks/useFormWithValidation";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 import Logo from "../../images/Logo-min.svg";
+import { EMAIL_PATTERN } from "../../utils/constants";
 
 function Register({ onRegister }) {
   const { formInputs, handleChange, errors, isValid } =
@@ -13,6 +15,8 @@ function Register({ onRegister }) {
     });
 
     const [message, setMessage] = useState("");
+
+    const { currentUser, reqIsProcessing } = useContext(CurrentUserContext);
 
     const onSubmit = (evt) => {
       evt.preventDefault();
@@ -47,6 +51,7 @@ function Register({ onRegister }) {
               maxLength="30"
               minlenght="2"
               required
+              disabled={reqIsProcessing}
             />
             <span className="register__error-message">{errors.name}</span>
           </div>
@@ -60,9 +65,11 @@ function Register({ onRegister }) {
               id="email"
               name="email"
               value={formInputs.email}
+              pattern={EMAIL_PATTERN}
               placeholder="email"
               onChange={handleChange}
               required
+              disabled={reqIsProcessing}
             />
             <span className="register__error-message">{errors.email}</span>
           </div>
@@ -81,13 +88,14 @@ function Register({ onRegister }) {
               maxLength="10"
               required
               onChange={handleChange}
+              disabled={reqIsProcessing}
             ></input>
             <span className="register__error-message">{errors.password}</span>
           </div>
           <button
             className="register__submit-button"
             type="submit"
-            disabled={!isValid}
+            disabled={!isValid || reqIsProcessing}
           >
             Зарегистрироваться
           </button>
