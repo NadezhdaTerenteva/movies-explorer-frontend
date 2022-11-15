@@ -56,8 +56,12 @@
   color: #000000;
 }
 
-.sidebar-menu__link:hover {
+.sidebar-menu__link_active {
   text-decoration: underline;
+  
+}
+
+.sidebar-menu__link:hover {
   opacity: 0.7;
 }
 

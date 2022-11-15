@@ -3,9 +3,15 @@ import { useState, useEffect, useContext } from "react";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 import { Link } from "react-router-dom";
-import useFormWithValidation from "../../hooks/useFormWithValidation";
-import { EMAIL_PATTERN } from "../../utils/constants";
+import useInput from '../../hooks/useInput';
+import { nameValidators, emailValidators } from "../../utils/validators";
+
 import "./Profile.css";
+
+const validators = {
+  name: nameValidators,
+  email: emailValidators
+}
 
 function Profile({ isLoggedIn, onLogout, onUpdateUser }) {
 
@@ -13,37 +19,32 @@ function Profile({ isLoggedIn, onLogout, onUpdateUser }) {
   const [viewOnly, setViewOnly] = useState(true);
   const [dataIsModified, setDataIsModified] = useState(false);
 
-  const { formInputs, handleChange, errors, isValid, resetForm } =
-    useFormWithValidation({
-      name: currentUser.name || "",
-      email: currentUser.email || ""
-    });
+  const [name, nameOnChange, nameIsValid, nameError ] = useInput(currentUser.name, validators, true);
+  const [email, emailOnChange, emailIsValid, emailError ] = useInput(currentUser.email, validators, true);
+  const [isValid, setIsValid] = useState(false);
+
+  useEffect(()=>{
+    const formIsValid = name && nameIsValid && emailIsValid  && email;
+    setIsValid(formIsValid)
+  }, [nameIsValid,emailIsValid, name, email])
+
+  useEffect(()=>{
+    const dataIsModified = currentUser.email !== email || currentUser.name !== name;
+    setDataIsModified(dataIsModified);
+  }, [name, email, currentUser])
 
   function handleSubmit(e) {
     e.preventDefault();
     // Передаём значения управляемых компонентов во внешний обработчик
-    onUpdateUser(formInputs);
+    onUpdateUser({name, email});
+    setViewOnly(true);
   }
-
-  
-  useEffect(() => {
-    if (currentUser) {
-      resetForm(currentUser, {}, true);
-    }
-  }, [currentUser, resetForm]);
 
   const onEditClickHandler = (e) => {
     e.preventDefault();
     setViewOnly(false);
   }
 
-  const inputOnChangeHandler = (e) => {
-    
-    const storedValue = currentUser[e.target.name];
-    setDataIsModified(e.target.value !== storedValue);
-  
-    handleChange(e);
-  }
   return (
     <section className="profile">
       
@@ -57,8 +58,8 @@ function Profile({ isLoggedIn, onLogout, onUpdateUser }) {
               Имя
             </label>
             <input
-              value={formInputs.name || ''}
-              onChange={inputOnChangeHandler}
+              value={name || ''}
+              onChange={nameOnChange}
               className="profile__input"
               type="text"
               id="name"
@@ -69,24 +70,23 @@ function Profile({ isLoggedIn, onLogout, onUpdateUser }) {
               required
               disabled={viewOnly || reqIsProcessing}
             ></input>
-            <span className="profile__error-message">{errors.name}</span>
+            <span className="profile__error-message">{nameError}</span>
           </div>
           <div className="profile__input-field">
             <label className="profile__form-label">
               E-mail
             </label>
             <input
-              value={formInputs.email || ''}
-              onChange={inputOnChangeHandler}
+              value={email || ''}
+              onChange={emailOnChange}
               className="profile__input"
               type="email"
               id="email"
               name="email"
-              pattern={EMAIL_PATTERN}
               required
               disabled={viewOnly || reqIsProcessing}
             ></input>
-            <span className="profile__error-message">{errors.email}</span>
+            <span className="profile__error-message">{emailError}</span>
           </div>
           {
             viewOnly

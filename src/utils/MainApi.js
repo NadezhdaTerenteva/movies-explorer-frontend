@@ -1,5 +1,6 @@
 import { BACKEND_API_ROOT } from '../utils/constants';
 import AuthError from './errors/AuthError';
+import ConflictError from './errors/ConflictError';
 
 class MainApi {
   constructor(url, token) {
@@ -17,6 +18,9 @@ class MainApi {
     }
     if (response.status === 401) {
       return Promise.reject(new AuthError('Ошибка авторизации'))
+    }
+    if (response.status === 409) {
+      return Promise.reject(new ConflictError('Пользователь с таким email уже зарегистрирован'))
     }
 
     return Promise.reject(new Error(`Ошибка ${response.status}: ${response.statusText}`)

@@ -1,27 +1,40 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import useFormWithValidation from "../../hooks/useFormWithValidation";
+import useInput from '../../hooks/useInput';
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 import Logo from "../../images/Logo-min.svg";
-import { EMAIL_PATTERN } from "../../utils/constants";
+import { nameValidators, emailValidators, passwordValidators } from "../../utils/validators";
+
+const validators = {
+  name: nameValidators,
+  email: emailValidators,
+  password: passwordValidators
+}
 
 function Register({ onRegister }) {
-  const { formInputs, handleChange, errors, isValid } =
-    useFormWithValidation({
-      name: "",
-      email: "",
-      password: "",
-    });
-
+  // const { formInputs, handleChange, errors, isValid } =
+  //   useFormWithValidation({
+  //     name: "",
+  //     email: "",
+  //     password: "",
+  //   });
+    const [name, nameOnChange, nameIsValid, nameError ] = useInput("", validators);
+    const [email, emailOnChange, emailIsValid, emailError ] = useInput("", validators);
+    const [password, passwordOnChange, passwordIsValid, passwordError ] = useInput("", validators);
     const [message, setMessage] = useState("");
+    const [isValid, setIsValid] = useState(false);
+    const { reqIsProcessing } = useContext(CurrentUserContext);
 
-    const { currentUser, reqIsProcessing } = useContext(CurrentUserContext);
+    useEffect(()=>{
+      const formIsValid = nameIsValid && emailIsValid && passwordIsValid && email && password;
+      setIsValid(formIsValid)
+    }, [nameIsValid,emailIsValid,passwordIsValid, name, email, password])
 
     const onSubmit = (evt) => {
       evt.preventDefault();
   
-      onRegister(formInputs).catch((err) =>
+      onRegister({name, email, password}).catch((err) =>
         setMessage(err.message || "Что-то пошло не так")
       );
     };
@@ -44,16 +57,16 @@ function Register({ onRegister }) {
               type="text"
               id="name"
               name="name"
-              value={formInputs.name}
+              value={name}
               placeholder="Имя"
-              onChange={handleChange}
+              onChange={nameOnChange}
               pattern="[A-Za-zА-Яа-яЁё\s-]+"
               maxLength="30"
               minlenght="2"
               required
               disabled={reqIsProcessing}
             />
-            <span className="register__error-message">{errors.name}</span>
+            <span className="register__error-message">{nameError}</span>
           </div>
           <label htmlFor="email" className="form-label">
             E-mail
@@ -64,14 +77,13 @@ function Register({ onRegister }) {
               type="email"
               id="email"
               name="email"
-              value={formInputs.email}
-              pattern={EMAIL_PATTERN}
+              value={email}
               placeholder="email"
-              onChange={handleChange}
+              onChange={emailOnChange}
               required
               disabled={reqIsProcessing}
             />
-            <span className="register__error-message">{errors.email}</span>
+            <span className="register__error-message">{emailError}</span>
           </div>
           <label htmlFor="password" className="form-label">
             Пароль
@@ -83,14 +95,14 @@ function Register({ onRegister }) {
               id="password"
               name="password"
               autoComplete="current-password"
-              value={formInputs.password}
+              value={password}
               minLength="6"
               maxLength="10"
               required
-              onChange={handleChange}
+              onChange={passwordOnChange}
               disabled={reqIsProcessing}
             ></input>
-            <span className="register__error-message">{errors.password}</span>
+            <span className="register__error-message">{passwordError}</span>
           </div>
           <button
             className="register__submit-button"

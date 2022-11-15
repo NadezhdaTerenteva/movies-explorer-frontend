@@ -22,14 +22,16 @@ function SidebarMenu({ visible, toggleSideBar }) {
         />
         <div className="sidebar-menu__links">
           <NavLink 
-            to="/" 
+            exact to="/" 
             className="sidebar-menu__link sidebar-menu__link-main"
+            activeClassName="sidebar-menu__link_active"
             onClick={toggleSideBar}>
             Главная
           </NavLink>
           <NavLink
             to="/movies"
             className="sidebar-menu__link sidebar-menu__link-films"
+            activeClassName="sidebar-menu__link_active"
             onClick={toggleSideBar}
           >
             Фильмы
@@ -37,6 +39,7 @@ function SidebarMenu({ visible, toggleSideBar }) {
           <NavLink
             to="/saved-movies"
             className="sidebar-menu__link sidebar-menu__link-saved-films"
+            activeClassName="sidebar-menu__link_active"
             onClick={toggleSideBar}
           >
             Сохранённые фильмы
@@ -44,6 +47,7 @@ function SidebarMenu({ visible, toggleSideBar }) {
           <NavLink
             to="/profile"
             className="sidebar-menu__link sidebar__link-account"
+            activeClassName="sidebar-menu__link_active"
             onClick={toggleSideBar}
           >
             <p className="sidebar__link-account-text">Аккаунт</p>

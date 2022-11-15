@@ -136,6 +136,18 @@
     padding-left: 0;
   }
 }
+
+@media screen and (max-width: 430px) {
+  
+  .movies-card__save-button_active {
+    visibility: visible;
+  }
+
+  .movies-card__delete-icon_active {
+    visibility: visible;
+  }
+}
+
 @media screen and (max-width: 360px) {
   .movies-card {
     max-width: 300px;
@@ -144,13 +156,5 @@
   .movies-card__name {
     font-size: 12px;
     line-height: 15px;
-  }
-
-  .movies-card__save-button_active {
-    visibility: visible;
-  }
-
-  .movies-card__delete-icon_active {
-    visibility: visible;
   }
 }

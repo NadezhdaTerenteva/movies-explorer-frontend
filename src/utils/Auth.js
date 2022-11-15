@@ -1,5 +1,5 @@
-export const BASE_URL = "https://back.movie-explorer.nomoredomains.icu";
-//export const BASE_URL = "http://localhost:4000";
+import {BACKEND_API_ROOT} from "../utils/constants";
+
 const checkResponse = (res) => {
   return res.ok
     ? res.json()
@@ -9,7 +9,7 @@ const checkResponse = (res) => {
 };
 
 export const register = ({ name, email, password }) => {
-  return fetch(`${BASE_URL}/signup`, {
+  return fetch(`${BACKEND_API_ROOT}/signup`, {
     method: "POST",
     headers: { "Content-type": "application/json",
     "Access-Control-Allow-Origin": "https://movie-explorer.nomoredomains.icu",
@@ -24,7 +24,7 @@ export const register = ({ name, email, password }) => {
 };
 
 export const authorize = (email, password) => {
-  return fetch(`${BASE_URL}/signin`, {
+  return fetch(`${BACKEND_API_ROOT}/signin`, {
     method: "POST",
     headers: { "Content-type": "application/json",
     "Access-Control-Allow-Origin": "https://movie-explorer.nomoredomains.icu",
@@ -38,7 +38,7 @@ export const authorize = (email, password) => {
 };
 
 export const logout = () => {
-  return fetch(`${BASE_URL}/signout`, {
+  return fetch(`${BACKEND_API_ROOT}/signout`, {
     method: "POST",
     headers: { "Content-type": "application/json" },
     credentials: 'include',

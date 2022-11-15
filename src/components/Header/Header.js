@@ -1,4 +1,4 @@
-import { Link, Switch, useLocation } from "react-router-dom";
+import { Link, NavLink, Switch, useLocation } from "react-router-dom";
 import Logo from "../../images/Logo-min.svg";
 import AccountIcon from "../../images/account_icon-min.svg";
 import "./Header.css";
@@ -31,18 +31,21 @@ function Header({ isLoggedIn, toggleSideBar }) {
             <img src={Logo} alt="Лого" className="header__logo"></img>
           </Link>
           <div className="header__links">
-            <Link to="/movies" 
+            <NavLink to="/movies" 
+              activeClassName="header__link_active"
               className={`header__link ${
               location.pathname === '/' ? "header__link_theme_dark" : ""} header__link-films`} >
               Фильмы
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               to="/saved-movies"
+              activeClassName="header__link_active"
               className={`header__link ${
                 location.pathname === '/' ? "header__link_theme_dark" : ""} header__link-saved-films`} >
               Сохранённые фильмы
-            </Link>
-            <Link to="/profile" 
+            </NavLink>
+            <NavLink to="/profile" 
+                activeClassName="header__link_active"
                 className={`header__link ${
                   location.pathname === '/' ? "header__link_theme_dark" : ""} header__link-account`} >
               <p className="header__link-account-text">Аккаунт</p>
@@ -51,7 +54,7 @@ function Header({ isLoggedIn, toggleSideBar }) {
                 alt="Иконка"
                 className="header__link-account-icon">
                   </img>
-            </Link>
+            </NavLink>
             <button 
               type="button"
               className={`header__burger-menu ${

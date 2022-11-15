@@ -1,30 +1,38 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import useFormWithValidation from "../../hooks/useFormWithValidation";
+import useInput from '../../hooks/useInput';
 import { CurrentUserContext } from "../../context/CurrentUserContext";
-
+import { emailValidators, passwordValidators } from "../../utils/validators";
 
 import Logo from "../../images/Logo-min.svg";
-import { EMAIL_PATTERN } from "../../utils/constants";
+
+const validators = {
+  email: emailValidators,
+  password: passwordValidators
+}
 
 function Login({ onLogin }) {
-  const { formInputs, handleChange, errors, isValid } =
-    useFormWithValidation({
-      email: "",
-      password: "",
-    });
 
+  const [email, emailOnChange, emailIsValid, emailError ] = useInput("", validators);
+  const [password, passwordOnChange, passwordIsValid, passwordError ] = useInput("", validators);
+  
+  const [isValid, setIsValid] = useState(false);
   const [message, setMessage] = useState("");
 
-  const { currentUser, reqIsProcessing } = useContext(CurrentUserContext);
+  const { reqIsProcessing } = useContext(CurrentUserContext);
+
+  useEffect(()=>{
+    const formIsValid = emailIsValid && passwordIsValid && email && password;
+    setIsValid(formIsValid)
+  }, [emailIsValid,passwordIsValid, email, password])
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    if (!formInputs.email || !formInputs.password) {
+    if (!email || !password) {
       return;
     }
 
-    onLogin(formInputs).catch((err) =>
+    onLogin({email, password}).catch((err) =>
       setMessage(err.message || "Что-то пошло не так")
     );
   };
@@ -46,13 +54,13 @@ function Login({ onLogin }) {
               type="email"
               id="email"
               name="email"
-              value={formInputs.email}
-              pattern={EMAIL_PATTERN}
+              value={email}
+              
               required
-              onChange={handleChange}
+              onChange={emailOnChange}
               disabled={reqIsProcessing}
             ></input>
-            <span className="login__error-message">{errors.email}</span>
+            <span className="login__error-message">{emailError}</span>
           </div>
           <label htmlFor="password" className="form-label">
             Пароль
@@ -64,19 +72,19 @@ function Login({ onLogin }) {
               id="password"
               name="password"
               autoComplete="current-password"
-              value={formInputs.password}
+              value={password}
               minLength="6"
               maxLength="10"
               required
-              onChange={handleChange}
+              onChange={passwordOnChange}
               disabled={reqIsProcessing}
             ></input>
-            <span className="login__error-message">{errors.password}</span>
+            <span className="login__error-message">{passwordError}</span>
           </div>
           <button
             className="login__submit-button"
             type="submit"
-            disabled={!isValid }
+            disabled={!isValid || reqIsProcessing}
           >
             Войти
           </button>

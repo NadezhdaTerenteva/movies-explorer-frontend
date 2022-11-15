@@ -46,6 +46,11 @@
   line-height: 18px;
   color: #000000;
   text-decoration: none;
+  font-weight: 400;
+}
+
+.header__link_active {
+  font-weight: 500;
 }
 
 .header__link_theme_dark {
@@ -54,17 +59,13 @@
 
 .header__link-films {
   display: block;
-  font-weight: 500;
   font-size: 13px;
   line-height: 18px;
-  text-decoration: none;
 }
 
 .header__link-saved-films {
   margin-left: 16px;
-  margin-right: auto;
-  font-weight: 400;
-  text-decoration: none;
+  margin-right: auto; 
 }
 
 .header__link-account {
@@ -73,7 +74,6 @@
 }
 
 .header__link-account-text {
-  font-weight: 500;
   font-size: 14px;
   line-height: 16px;
 }

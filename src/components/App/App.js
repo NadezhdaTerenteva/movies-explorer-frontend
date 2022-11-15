@@ -4,8 +4,8 @@ import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 import * as auth from "../../utils/Auth";
 import { mainApi } from "../../utils/MainApi";
 import AuthError from "../../utils/errors/AuthError";
+import ConflictError from "../../utils/errors/ConflictError";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
@@ -49,21 +49,6 @@ function App() {
   const toggleSideBar = () => {
     setIsSideBarOpen(!isSideBarOpen);
   };
-
-  // Получаем данные пользователя
-  useEffect(() => {
-      mainApi
-        .getUserInfo()
-        .then((res) => {
-          setCurrentUser(res);
-          setIsLoggedIn(true);
-        })
-        .catch((err) => {
-          resetUser();
-          history.push('/');
-          console.log(err);
-        });
-  }, [isLoggedIn]);
 
   //Получаем сохраненные фильмы
   useEffect(() => {
@@ -118,11 +103,13 @@ function App() {
       .updateUser(userData)
       .then((res) => {
         setCurrentUser(res);
+        setStatusMessage(true);
         setInfotooltipOpen(true);
         setTooltipMessage("Ваши данные обновлены!");
       })
       .catch((err) => {
         processAuthError(err);
+        setStatusMessage(false);
         setInfotooltipOpen(true);
         setTooltipMessage("Что-то пошло не так! Попробуйте ещё раз.");
       }).finally(()=>{
@@ -150,18 +137,21 @@ function App() {
     const { email, password } = data;
     return auth
       .authorize(email, password)
-      .then((user) => {
+      .then((res) => {
+        
         setIsLoggedIn(true);
-        setCurrentUser(user);
+        setCurrentUser(res.data);
         history.push("/movies");
       })
       .catch((err) => {
         if (err.code === 401) {
           setStatusMessage(false);
+          setInfotooltipOpen(true);
           setTooltipMessage("Неверный логин или пароль");
           history.push("/signin");
         } else {
           setStatusMessage(false);
+          setInfotooltipOpen(true);
           setTooltipMessage("Что-то пошло не так! Попробуйте ещё раз.");
           history.push("/signin");
         }
@@ -180,8 +170,9 @@ function App() {
         onLogin(data);
       })
       .catch((err) => {
-        if (err.code === 409) {
+        if (err instanceof ConflictError) {
           setStatusMessage(false);
+          setInfotooltipOpen(true);
           setTooltipMessage("Пользователь с таким email уже зарегистрирован");
         } else {
           setStatusMessage(false);
@@ -209,7 +200,8 @@ function App() {
           <Main />
           <Footer />
         </Route>
-      
+
+        
         <ProtectedRoute
           path="/movies"
           isLoggedIn={isLoggedIn}

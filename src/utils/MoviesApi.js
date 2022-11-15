@@ -1,4 +1,4 @@
-import { MOVIE_API, FILE_ROOT} from '../utils/constants';
+import { MOVIE_API } from '../utils/constants';
 
 class MoviesApi {
     constructor(url) {
