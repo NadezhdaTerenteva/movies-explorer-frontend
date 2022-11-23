@@ -46,22 +46,26 @@
   line-height: 18px;
   color: #000000;
   text-decoration: none;
+  font-weight: 400;
+}
+
+.header__link_active {
+  font-weight: 500;
+}
+
+.header__link_theme_dark {
+  color:#ffffff;
 }
 
 .header__link-films {
   display: block;
-  font-weight: 500;
   font-size: 13px;
   line-height: 18px;
-  color: #000000;
-  text-decoration: none;
 }
 
 .header__link-saved-films {
   margin-left: 16px;
-  margin-right: auto;
-  font-weight: 400;
-  text-decoration: none;
+  margin-right: auto; 
 }
 
 .header__link-account {
@@ -70,7 +74,6 @@
 }
 
 .header__link-account-text {
-  font-weight: 500;
   font-size: 14px;
   line-height: 16px;
 }
@@ -103,9 +106,25 @@
 
 .header__burger-menu {
   display: none;
+  width: 44px;
+  height: 44px;
+  background-image: url(../../images/burger-menu-icon-min.svg);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  outline: none;
 }
 
-@media screen and (max-width: 800px) {
+.header__burger-menu_theme_dark {
+  background-image: url(../../images/burger-menu-icon_theme_dark-min.svg);
+}
+
+.header__burger-menu:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 890px) {
   .header__logo {
     margin-left: 30px;
   }

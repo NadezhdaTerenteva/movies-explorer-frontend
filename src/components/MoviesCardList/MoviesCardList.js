@@ -1,15 +1,13 @@
-import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
 
-function MoviesCardList() {
+function MoviesCardList({ children }) {
+
   return (
+    
     <section className="movies-card-list">
-        <MoviesCard></MoviesCard>
-        <MoviesCard></MoviesCard>
-        <MoviesCard></MoviesCard>
-        <MoviesCard></MoviesCard>
+        { children }
     </section>
-    );
+  );
 }
 
 export default MoviesCardList;

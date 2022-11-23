@@ -8,4 +8,13 @@ In the project directory, you can run:
 ### `npm run start`
 to see the web-page in browser. 
 
-Ссылка на макет: https://disk.yandex.ru/d/DNF2K1irJV6zVw
+# Ссылки на проект
+IP <158.160.3.103>
+
+Frontend https://movie-explorer.nomoredomains.icu
+
+Backend https://back.movie-explorer.nomoredomains.icu
+
+Макет: https://disk.yandex.ru/d/DNF2K1irJV6zVw
+
+Ссылка на pull-request: https://github.com/NadezhdaTerenteva/movies-explorer-frontend/pull/4 

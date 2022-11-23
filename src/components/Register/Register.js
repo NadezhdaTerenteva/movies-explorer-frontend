@@ -1,32 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
+import useInput from '../../hooks/useInput';
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 import Logo from "../../images/Logo-min.svg";
+import { nameValidators, emailValidators, passwordValidators } from "../../utils/validators";
+
+const validators = {
+  name: nameValidators,
+  email: emailValidators,
+  password: passwordValidators
+}
 
 function Register({ onRegister }) {
-  const [registerData, setRegisterData] = useState({
-    password: "",
-    email: "",
-  });
+  // const { formInputs, handleChange, errors, isValid } =
+  //   useFormWithValidation({
+  //     name: "",
+  //     email: "",
+  //     password: "",
+  //   });
+    const [name, nameOnChange, nameIsValid, nameError ] = useInput("", validators);
+    const [email, emailOnChange, emailIsValid, emailError ] = useInput("", validators);
+    const [password, passwordOnChange, passwordIsValid, passwordError ] = useInput("", validators);
+    const [message, setMessage] = useState("");
+    const [isValid, setIsValid] = useState(false);
+    const { reqIsProcessing } = useContext(CurrentUserContext);
 
-  const [message, setMessage] = useState("");
+    useEffect(()=>{
+      const formIsValid = nameIsValid && emailIsValid && passwordIsValid && email && password;
+      setIsValid(formIsValid)
+    }, [nameIsValid,emailIsValid,passwordIsValid, name, email, password])
 
-  const handleChange = (evt) => {
-    setMessage("");
-    const { name, value } = evt.target;
-    setRegisterData({
-      ...registerData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-
-    onRegister(registerData).catch((err) =>
-      setMessage(err.message || "Что-то пошло не так")
-    );
-  };
+    const onSubmit = (evt) => {
+      evt.preventDefault();
+  
+      onRegister({name, email, password}).catch((err) =>
+        setMessage(err.message || "Что-то пошло не так")
+      );
+    };
+  
 
   return (
     <section className="register">
@@ -35,49 +47,68 @@ function Register({ onRegister }) {
           <img src={Logo} alt="Лого" className="logo_in-forms"></img>
         </Link>
         <h3 className="register__header">Добро пожаловать!</h3>
-        <form onSubmit={handleSubmit} className="register__form">
-          <label for="name" className="form-label">
+        <form onSubmit={onSubmit} className="register__form">
+          <label htmlFor="name" className="form-label">
             Имя
           </label>
-          <input
-            className="register__input"
-            type="text"
-            id="name"
-            name="name"
-            value={registerData.name || ""}
-            placeholder="Иван"
-            required
-            onChange={handleChange}
-          ></input>
-          <label for="email" className="form-label">
+          <div className="register__input-field">
+            <input
+              className="register__input"
+              type="text"
+              id="name"
+              name="name"
+              value={name}
+              placeholder="Имя"
+              onChange={nameOnChange}
+              pattern="[A-Za-zА-Яа-яЁё\s-]+"
+              maxLength="30"
+              minlenght="2"
+              required
+              disabled={reqIsProcessing}
+            />
+            <span className="register__error-message">{nameError}</span>
+          </div>
+          <label htmlFor="email" className="form-label">
             E-mail
           </label>
-          <input
-            className="register__input"
-            type="email"
-            id="email"
-            name="email"
-            value={registerData.email || ""}
-            placeholder="ivan.ivanov@yandex.ru"
-            required
-            onChange={handleChange}
-          ></input>
-          <label for="password" className="form-label">
+          <div className="register__input-field">
+            <input
+              className="register__input"
+              type="email"
+              id="email"
+              name="email"
+              value={email}
+              placeholder="email"
+              onChange={emailOnChange}
+              required
+              disabled={reqIsProcessing}
+            />
+            <span className="register__error-message">{emailError}</span>
+          </div>
+          <label htmlFor="password" className="form-label">
             Пароль
           </label>
-          <input
-            className="register__input"
-            type="password"
-            id="password"
-            name="password"
-            autoComplete="current-password"
-            value={registerData.password || ""}
-            minLength="6"
-            maxLength="10"
-            required
-            onChange={handleChange}
-          ></input>
-          <button className="register__submit-button" type="submit">
+          <div className="register__input-field">
+            <input
+              className="register__input"
+              type="password"
+              id="password"
+              name="password"
+              autoComplete="current-password"
+              value={password}
+              minLength="6"
+              maxLength="10"
+              required
+              onChange={passwordOnChange}
+              disabled={reqIsProcessing}
+            ></input>
+            <span className="register__error-message">{passwordError}</span>
+          </div>
+          <button
+            className="register__submit-button"
+            type="submit"
+            disabled={!isValid || reqIsProcessing}
+          >
             Зарегистрироваться
           </button>
         </form>

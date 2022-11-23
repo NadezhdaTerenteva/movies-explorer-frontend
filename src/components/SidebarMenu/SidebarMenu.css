@@ -1,9 +1,7 @@
 .sidebar-menu {
-  /*display: none;*/
   display: flex;
   visibility: hidden;
-  opacity: 0;
-  transition: opacity 1s, visibility 1s;
+  transition: opacity 1s, visibility 0.9s ease-out;
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.3);
@@ -17,8 +15,6 @@
 .sidebar-menu_opened {
   display: flex;
   visibility: visible;
-  opacity: 1;
-  transition: opacity 1s, visibility 0s;
 }
 
 .sidebar-menu__content {
@@ -28,13 +24,16 @@
   height: 100%;
   position: fixed;
   top: 0;
-  right: -500px;
+  right: -520px;
   background-color: #ffffff;
-  transition: transform 0.4s ease-in-out;
+  /*transform: translate(-500px, 0);
+  transition: transform 0.4s;*/
+  transition: right 1s ease-in-out;
 }
 
-.sidebar-menu__content:hover {
-  transform: translate(-500px, 0);
+.sidebar-menu__content_animated {
+  right: 0px;
+  transition: right 1.2s ease-in-out;
 }
 
 .sidebar-menu__links {
@@ -48,7 +47,6 @@
   text-align: center;
   margin-top: 159px;
   height: calc(100vh - 200px);
-  border: 1px solid blue;
 }
 
 .sidebar-menu__link {
@@ -58,8 +56,13 @@
   color: #000000;
 }
 
-.sidebar-menu__link:hover {
+.sidebar-menu__link_active {
   text-decoration: underline;
+  
+}
+
+.sidebar-menu__link:hover {
+  opacity: 0.7;
 }
 
 .sidebar__link-account {
