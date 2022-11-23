@@ -15,4 +15,4 @@ Frontend https://movie-explorer.nomoredomains.icu
 
 Backend https://back.movie-explorer.nomoredomains.icu
 
-Layout in Figma: https://disk.yandex.ru/d/DNF2K1irJV6zVw
+Design draft: https://disk.yandex.ru/d/DNF2K1irJV6zVw
